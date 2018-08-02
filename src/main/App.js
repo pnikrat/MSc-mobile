@@ -2,11 +2,11 @@
 import React from 'react';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Root } from 'native-base';
-import Login from './container/LoginContainer';
-import Home from './container/HomeContainer';
-import BlankPage from './container/BlankPageContainer';
-import Sidebar from './container/SidebarContainer';
-import LandingContainer from './container/LandingContainer';
+import Home from './Home';
+import LoginContainer from '../authentication/LoginContainer';
+
+import BlankPage from '../container/BlankPageContainer';
+import Sidebar from '../container/SidebarContainer';
 
 const Drawer = createDrawerNavigator(
 	{
@@ -20,13 +20,13 @@ const Drawer = createDrawerNavigator(
 
 const RootStack = createStackNavigator(
 	{
-		Landing: { screen: LandingContainer },
-		Login: { screen: Login },
+		Home: { screen: Home },
+		Login: { screen: LoginContainer },
 		BlankPage: { screen: BlankPage },
 		Drawer: { screen: Drawer },
 	},
 	{
-		initialRouteName: 'Landing',
+		initialRouteName: 'Home',
 		headerMode: 'none',
 	}
 );
