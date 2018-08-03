@@ -3,7 +3,7 @@ import * as React from 'react';
 import { StyleProvider } from 'native-base';
 import { Provider } from 'react-redux';
 
-import configureStore from '../state/store';
+import store from '../state/store';
 import App from '../main/App';
 import getTheme from '../theme/components';
 import variables from '../theme/variables/platform';
@@ -11,16 +11,17 @@ import { verifyCredentials } from '../authConfig';
 
 export interface Props {}
 export interface State {
-	store: Object,
 	isLoading: boolean,
 	isReady: boolean,
 }
+
+verifyCredentials(store);
+
 export default class Setup extends React.Component<Props, State> {
 	constructor() {
 		super();
 		this.state = {
 			isLoading: false,
-			store: verifyCredentials(configureStore(() => this.setState({ isLoading: false }))),
 			isReady: false,
 		};
 	}
@@ -43,7 +44,7 @@ export default class Setup extends React.Component<Props, State> {
 		}
 		return (
 			<StyleProvider style={getTheme(variables)}>
-				<Provider store={this.state.store}>
+				<Provider store={store}>
 					<App />
 				</Provider>
 			</StyleProvider>

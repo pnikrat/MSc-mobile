@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container } from 'native-base';
+import { Container, Content, Header, Text, View } from 'native-base';
 import { signInUser } from '../authConfig';
 
 type Props = {
@@ -13,7 +13,13 @@ type Props = {
 class LoginContainer extends Component<Props> {
   render() {
     return (
-      <Container />
+      <Container>
+        <Header />
+        <Content padder>
+          <Text>{this.props.currentUser.attributes.firstName}</Text>
+          <Text>{this.props.currentUser.isSignedIn}</Text>
+        </Content>
+      </Container>
     );
   }
 }
