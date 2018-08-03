@@ -25,7 +25,7 @@ export default class Setup extends React.Component<Props, State> {
 			isReady: false,
 		};
 	}
-	componentWillMount() {
+	componentDidMount() {
 		this.loadFonts();
 	}
 	async loadFonts() {

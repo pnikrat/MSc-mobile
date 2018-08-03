@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Container, Header, Content, Text } from 'native-base';
-import { SubmissionError } from 'redux-form';
+import { Container, Header, Content, Text, Toast } from 'native-base';
 
 type P = {}
 
@@ -15,33 +14,27 @@ function withAuth(WrappedForm: React.ComponentType<P>) {
 
   return class extends React.Component<Props> {
     redirect = () => {
-      this.props.navigation.navigate('Blank Page');
+      this.props.navigation.navigate('BlankPage');
     }
 
     handleAuth = (data: Object) => {
       const { sendAuthRequest } = this.props;
-      debugger;
       return sendAuthRequest(data)
         .then(() => this.redirect()).catch(e => this.handleInvalidAuth(e));
     };
 
     handleInvalidAuth = (error: Object) => {
-      debugger;
-      // const { errorCode } = this.props;
-      // const { response: { status, data: { errors } }, response } = error;
-      // if (response && status === errorCode) {
-      //   if (errors.full_messages) {
-      //     throw new SubmissionError(errors);
-      //   } else {
-      //     throw new SubmissionError({
-      //       _error: 'Logowanie nieudane!'
-      //     });
-      //   }
-      // } else {
-      //   throw new SubmissionError({
-      //     _error: 'Błąd serwera, proszę spróbować później.'
-      //   });
-      // }
+      const { errorCode } = this.props;
+      const { response: { status, data: { errors } }, response } = error;
+      if (response && status === errorCode) {
+        if (errors.full_messages) {
+          Toast.show({text: errors.full_messages[0], buttonText: 'OK'});
+        } else {
+          Toast.show({text: 'Autoryzacja nie powiodła się.', buttonText: 'OK'});
+        }
+      } else {
+        Toast.show({text: 'Błąd serwera, proszę spróbować później.', buttonText: 'OK'});
+      }
     }
 
     render() {
