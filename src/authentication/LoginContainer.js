@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Header, Text, View } from 'native-base';
 import { signInUser } from '../authConfig';
+import withAuth from './withAuth';
+import LoginForm from './LoginForm';
 
 type Props = {
   currentUser: Object,
@@ -10,26 +11,28 @@ type Props = {
   sendLoginRequest: (Object) => Promise<void>,
 }
 
+const LoginFormWithAuthScreen = withAuth(LoginForm);
+
 class LoginContainer extends Component<Props> {
   render() {
+    const { navigation, sendLoginRequest } = this.props;
     return (
-      <Container>
-        <Header />
-        <Content padder>
-          <Text>{this.props.currentUser.attributes.firstName}</Text>
-          <Text>{this.props.currentUser.isSignedIn}</Text>
-        </Content>
-      </Container>
+      <LoginFormWithAuthScreen
+        navigation={navigation}
+        headerText="Zaloguj się"
+        errorCode={401}
+        sendAuthRequest={sendLoginRequest}
+      />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.reduxTokenAuth.currentUser
+  currentUser: state.reduxTokenAuth.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendLoginRequest: data => dispatch(signInUser(data))
+  sendLoginRequest: data => dispatch(signInUser(data)),
 });
 
 
