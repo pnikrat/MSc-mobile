@@ -11,22 +11,18 @@ const styles: any = StyleSheet.create({
     fontSize: 104,
   },
   button: {
-    mb: {
-      marginBottom: 10,
-    }
+    marginTop: 15,
   },
-  footer: {
-    background: {
-      backgroundColor: '#F8F8F8',
-    },
-    contentAlignment: {
-      alignItems: 'center',
-      opacity: 0.5,
-      flexDirection: 'row',
-    },
-    text: {
-      color: '#000',
-    },
+  footerBackground: {
+    backgroundColor: '#F8F8F8',
+  },
+  footerContentAlignment: {
+    alignItems: 'center',
+    opacity: 0.5,
+    flexDirection: 'row',
+  },
+  footerText: {
+    color: '#000',
   },
 });
 export default styles;

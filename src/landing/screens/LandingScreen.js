@@ -17,20 +17,18 @@ const LandingScreen = ({navigation, styles}: Props) => (
         <Title>Grupowa lista zakupów</Title>
       </Body>
     </Header>
-    <Content>
-      <View padder>
-        <Button block styles={styles.button.mb} onPress={() => navigation.navigate('Register')}>
-          <Text>Rejestracja</Text>
-        </Button>
-        <Button block onPress={() => navigation.navigate('Login')}>
-          <Text>Logowanie</Text>
-        </Button>
-      </View>
+    <Content padder>
+      <Button block style={styles.button} onPress={() => navigation.navigate('Register')}>
+        <Text>Rejestracja</Text>
+      </Button>
+      <Button block style={styles.button} onPress={() => navigation.navigate('Login')}>
+        <Text>Logowanie</Text>
+      </Button>
     </Content>
-    <Footer style={styles.footer.background}>
-      <View style={styles.footer.contentAlignment}>
+    <Footer style={styles.footerBackground}>
+      <View style={styles.footerContentAlignment}>
         <View padder>
-          <Text style={styles.footer.text}>Made by Przemo</Text>
+          <Text style={styles.footerText}>Made by Przemo</Text>
         </View>
       </View>
     </Footer>

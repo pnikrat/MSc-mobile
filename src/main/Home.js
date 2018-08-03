@@ -17,8 +17,8 @@ class Home extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.reduxTokenAuth.currentUser
-});
+// const mapStateToProps = state => ({
+//   currentUser: state.reduxTokenAuth.currentUser
+// });
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(null, null)(Home);
