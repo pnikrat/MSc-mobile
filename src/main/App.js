@@ -7,6 +7,7 @@ import LoginContainer from '../authentication/LoginContainer';
 
 import BlankPage from '../container/BlankPageContainer';
 import Sidebar from '../container/SidebarContainer';
+import RegisterContainer from '../authentication/RegisterContainer';
 
 const Drawer = createDrawerNavigator(
 	{
@@ -22,6 +23,7 @@ const RootStack = createStackNavigator(
 	{
 		Home: { screen: Home },
 		Login: { screen: LoginContainer },
+		Register: { screen: RegisterContainer },
 		BlankPage: { screen: BlankPage },
 		Drawer: { screen: Drawer },
 	},
