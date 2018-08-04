@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Container, Header, Content, Text, Toast } from 'native-base';
+import { Container, Content, Toast } from 'native-base';
+import BaseHeader from '../common/BaseHeader';
 
 type P = {}
 
@@ -39,13 +40,11 @@ function withAuth(WrappedForm: React.ComponentType<P>) {
 
     render() {
       const {
-        headerText
+        headerText, navigation,
       } = this.props;
       return (
         <Container>
-          <Header>
-            <Text>{headerText}</Text>
-          </Header>
+          <BaseHeader headerText={headerText} navigation={navigation} />
           <Content padder>
             <WrappedForm onSubmit={this.handleAuth} />
           </Content>
