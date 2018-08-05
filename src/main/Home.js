@@ -1,18 +1,22 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import LandingContainer from '../landing/LandingContainer';
+import ListsContainer from '../lists/ListsContainer';
 
 type Props = {
   currentUser: Object,
   navigation: any,
 }
 
-class Home extends Component<Props> {
+class Home extends React.Component<Props> {
   render() {
-    const { navigation } = this.props;
+    const { navigation, currentUser } = this.props;
     return (
-      <LandingContainer navigation={navigation} />
+      <React.Fragment>
+      { currentUser.isSignedIn && <ListsContainer navigation={navigation} /> }
+      { !currentUser.isSignedIn && <LandingContainer navigation={navigation} /> }
+      </React.Fragment>
     );
   }
 }
