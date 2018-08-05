@@ -9,11 +9,12 @@ type Props = {
   lists: Array<Object>,
 }
 
-const ListsScreen = ({navigation, currentUser}: Props) => (
+const ListsScreen = ({navigation, currentUser, lists}: Props) => (
   <Container>
     <BaseHeader navigation={navigation} headerText="Listy" />
     <Content>
       <Text>Twoje listy</Text>
+      <Text>{lists[0].name}</Text>
     </Content>
     {/* <Lists
       lists={lists}

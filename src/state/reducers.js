@@ -1,13 +1,16 @@
 import { combineReducers } from 'redux';
 import { reduxTokenAuthReducer as reduxTokenAuth } from 'redux-token-auth';
 import { reducer as form } from 'redux-form';
-
-import homeReducer from '../container/HomeContainer/reducer';
+import listsReducer from '../lists/state/ListsReducer';
+import apiLoadingReducer from '../services/apiLoadingReducer';
+import apiMessagesReducer from '../services/apiMessagesReducer';
 
 const appReducer = combineReducers({
   form,
   reduxTokenAuth,
-  homeReducer,
+  listsReducer,
+  apiLoadingReducer,
+  apiMessagesReducer,
 });
 
 export default appReducer;

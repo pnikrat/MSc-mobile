@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { apiCall } from '../services/apiActions';
-import { GET, POST, PUT, DELETE } from '../state/constants';
-import { setLists } from './ListsActions';
+import { GET } from '../state/constants';
+import { setLists } from './state/ListsActions';
 import ListsScreen from './screens/ListsScreen';
 
 type Props = {
