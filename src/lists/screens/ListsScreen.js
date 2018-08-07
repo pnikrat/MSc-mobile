@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import BaseHeader from '../../common/BaseHeader';
-import { Container, Content, Text } from 'native-base';
+import { Container, Content, List, ListItem, Text } from 'native-base';
 
 type Props = {
   navigation: any,
@@ -13,13 +13,14 @@ const ListsScreen = ({navigation, currentUser, lists}: Props) => (
   <Container>
     <BaseHeader navigation={navigation} headerText="Listy" />
     <Content>
-      <Text>Twoje listy</Text>
-      <Text>{lists[0].name}</Text>
+      <List>
+        {lists.map(list => (
+          <ListItem>
+            <Text>list.name</Text>
+          </ListItem>
+        ))}
+      </List>
     </Content>
-    {/* <Lists
-      lists={lists}
-      currentUser={currentUser}
-    /> */}
   </Container>
 );
 

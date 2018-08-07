@@ -10,6 +10,9 @@ const initialState = {
       },
     },
   },
+  listsReducer: {
+    lists: [],
+  },
 };
 
 export default initialState;
