@@ -15,8 +15,8 @@ const ListsScreen = ({navigation, currentUser, lists}: Props) => (
     <Content>
       <List>
         {lists.map(list => (
-          <ListItem>
-            <Text>list.name</Text>
+          <ListItem key={list.id}>
+            <Text>{list.name}</Text>
           </ListItem>
         ))}
       </List>
