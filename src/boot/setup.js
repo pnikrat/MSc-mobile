@@ -2,27 +2,31 @@ import * as Expo from 'expo';
 import * as React from 'react';
 import { StyleProvider } from 'native-base';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import configureStore from './configureStore';
+import { store, persistor } from '../state/store';
 import App from '../main/App';
 import getTheme from '../theme/components';
 import variables from '../theme/variables/platform';
+import { verifyCredentials } from '../authConfig';
+
 export interface Props {}
 export interface State {
-	store: Object,
 	isLoading: boolean,
 	isReady: boolean,
 }
+
+verifyCredentials(store);
+
 export default class Setup extends React.Component<Props, State> {
 	constructor() {
 		super();
 		this.state = {
 			isLoading: false,
-			store: configureStore(() => this.setState({ isLoading: false })),
 			isReady: false,
 		};
 	}
-	componentWillMount() {
+	componentDidMount() {
 		this.loadFonts();
 	}
 	async loadFonts() {
@@ -41,8 +45,10 @@ export default class Setup extends React.Component<Props, State> {
 		}
 		return (
 			<StyleProvider style={getTheme(variables)}>
-				<Provider store={this.state.store}>
-					<App />
+				<Provider store={store}>
+					<PersistGate persistor={persistor} loading={<Expo.AppLoading />}>
+						<App />
+					</PersistGate>
 				</Provider>
 			</StyleProvider>
 		);
