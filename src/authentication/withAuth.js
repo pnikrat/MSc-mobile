@@ -44,7 +44,7 @@ function withAuth(WrappedForm: React.ComponentType<P>) {
       } = this.props;
       return (
         <Container>
-          <BaseHeader headerText={headerText} navigation={navigation} />
+          <BaseHeader headerText={headerText} navigation={navigation} hasGoBack />
           <Content padder>
             <WrappedForm onSubmit={this.handleAuth} />
           </Content>
