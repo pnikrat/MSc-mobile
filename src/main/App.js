@@ -8,6 +8,7 @@ import RegisterContainer from '../authentication/RegisterContainer';
 import ListsContainer from '../lists/ListsContainer';
 import AuthLoadingContainer from '../authentication/AuthLoadingContainer';
 import LandingContainer from '../landing/LandingContainer';
+import AccountContainer from '../authentication/AccountContainer';
 import BlankPage from '../stories/screens/BlankPage';
 import TabBarNavigation from './TabBarNavigation';
 
@@ -15,7 +16,7 @@ const AppStack = createBottomTabNavigator(
 	{
 		Lists: ListsContainer,
 		Groups: BlankPage,
-		Account: BlankPage,
+		Account: AccountContainer,
 	},
 	{
 		tabBarComponent: props =>
