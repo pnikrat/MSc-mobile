@@ -1,34 +1,43 @@
 // @flow
 import React from 'react';
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Root } from 'native-base';
-import Home from './Home';
 import LoginContainer from '../authentication/LoginContainer';
-
-import BlankPage from '../container/BlankPageContainer';
-import Sidebar from '../container/SidebarContainer';
 import RegisterContainer from '../authentication/RegisterContainer';
+import ListsContainer from '../lists/ListsContainer';
+import AuthLoadingContainer from '../authentication/AuthLoadingContainer';
+import LandingContainer from '../landing/LandingContainer';
 
-const Drawer = createDrawerNavigator(
+const AppStack = createStackNavigator(
 	{
-		Home: { screen: Home },
+		Lists: ListsContainer,
 	},
 	{
-		initialRouteName: 'Home',
-		contentComponent: props => <Sidebar {...props} />,
+		initialRouteName: 'Lists',
+		headerMode: 'none',
 	}
 );
 
-const RootStack = createStackNavigator(
+const AuthStack = createStackNavigator(
 	{
-		Home: { screen: Home },
+		Landing: { screen: LandingContainer },
 		Login: { screen: LoginContainer },
 		Register: { screen: RegisterContainer },
-		BlankPage: { screen: BlankPage },
-		Drawer: { screen: Drawer },
 	},
 	{
-		initialRouteName: 'Home',
+		initialRouteName: 'Landing',
+		headerMode: 'none',
+	}
+);
+
+const RootStack = createSwitchNavigator(
+	{
+		AuthLoading: { screen: AuthLoadingContainer },
+		App: { screen: AppStack },
+		Auth: { screen: AuthStack },
+	},
+	{
+		initialRouteName: 'AuthLoading',
 		headerMode: 'none',
 	}
 );

@@ -15,7 +15,7 @@ function withAuth(WrappedForm: React.ComponentType<P>) {
 
   return class extends React.Component<Props> {
     redirect = () => {
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('App');
     }
 
     handleAuth = (data: Object) => {
