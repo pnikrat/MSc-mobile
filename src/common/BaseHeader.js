@@ -5,14 +5,17 @@ import { Header, Left, Button, Icon, Body, Title, Right } from 'native-base';
 type Props = {
   navigation: any,
   headerText: string,
+  hasGoBack?: boolean,
 }
 
-const BaseHeader = ({navigation, headerText}: Props) => (
+const BaseHeader = ({ navigation, headerText, hasGoBack }: Props) => (
   <Header>
     <Left>
-      <Button transparent onPress={() => navigation.goBack()}>
-        <Icon name="ios-arrow-back" />
-      </Button>
+      { hasGoBack &&
+        <Button transparent onPress={() => navigation.goBack()}>
+          <Icon name="ios-arrow-back" />
+        </Button>
+      }
     </Left>
 
     <Body style={{ flex: 3 }}>
