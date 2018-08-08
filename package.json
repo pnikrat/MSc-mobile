@@ -48,7 +48,7 @@
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "redux-form": "7.2.1",
-    "redux-persist": "5.4.0",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "2.2.0",
     "redux-token-auth": "https://github.com/pnikrat/redux-token-auth.git#master"
   }
