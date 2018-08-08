@@ -1,21 +1,26 @@
 // @flow
 import React from 'react';
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator,
+	createBottomTabNavigator } from 'react-navigation';
 import { Root } from 'native-base';
 import LoginContainer from '../authentication/LoginContainer';
 import RegisterContainer from '../authentication/RegisterContainer';
 import ListsContainer from '../lists/ListsContainer';
 import AuthLoadingContainer from '../authentication/AuthLoadingContainer';
 import LandingContainer from '../landing/LandingContainer';
+import BlankPage from '../stories/screens/BlankPage';
+import TabBarNavigation from './TabBarNavigation';
 
-const AppStack = createStackNavigator(
+const AppStack = createBottomTabNavigator(
 	{
 		Lists: ListsContainer,
+		Groups: BlankPage,
+		Account: BlankPage,
 	},
 	{
-		initialRouteName: 'Lists',
-		headerMode: 'none',
-	}
+		tabBarComponent: props =>
+			<TabBarNavigation {...props} />
+	},
 );
 
 const AuthStack = createStackNavigator(
