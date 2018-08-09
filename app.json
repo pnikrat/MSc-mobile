@@ -1,20 +1,25 @@
 {
   "expo": {
+    "name": "Full Fridge",
+    "description": "Group shopping list app",
     "sdkVersion": "27.0.0",
-    "slug": "React-Native-Seed",
+    "slug": "full-fridge",
+    "version": "0.1.0",
     "loading": {
       "hideExponentText": false,
       "icon": "./assets/loading.png"
     },
     "orientation": "portrait",
-    "primaryColor": "#cccccc",
+    "primaryColor": "#ffffff",
     "packagerOpts": {
       "assetExts": ["ttf"]
     },
-    "androidStatusBarColor": "#334393",
     "androidStatusBar": {
       "barStyle": "light-content",
-      "backgroundColor": "#334393"
+      "backgroundColor": "#2874F0"
+    },
+    "splash": {
+      "backgroundColor": "#F8F8F8"
     }
   }
 }
