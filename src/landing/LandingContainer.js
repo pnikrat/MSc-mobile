@@ -7,7 +7,7 @@ type Props = {
   navigation: any,
 }
 
-const LandingContainer = ({navigation}: Props) => (
+const LandingContainer = ({ navigation }: Props) => (
   <LandingScreen navigation={navigation} styles={styles} />
 );
 

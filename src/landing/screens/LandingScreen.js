@@ -9,7 +9,7 @@ type Props = {
   styles: any,
 }
 
-const LandingScreen = ({navigation, styles}: Props) => (
+const LandingScreen = ({ navigation, styles }: Props) => (
   <Container>
     <Header style={styles.header}>
       <Body style={styles.headerBody}>

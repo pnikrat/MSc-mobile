@@ -6,14 +6,16 @@ import { GET, POST, PUT, DELETE } from '../state/constants';
 const BASE_URL = REACT_NATIVE_APP_BASE_URL;
 
 const setHeaders = (instance) => {
-  let token, uid, client;
+  let token;
+  let uid;
+  let client;
   return AsyncStorage.multiGet(['access-token', 'uid', 'client'], (err, stores) => {
     if (err) {
       console.log(err);
     }
-    stores.map(result => {
-      let key = result[0];
-      let value = result[1];
+    stores.map((result) => {
+      const key = result[0];
+      const value = result[1];
       if (key === 'access-token') {
         token = value;
       } else if (key === 'uid') {
@@ -21,6 +23,7 @@ const setHeaders = (instance) => {
       } else {
         client = value;
       }
+      return null;
     });
     instance.defaults.headers = {
       Accept: 'application/json;version=1',

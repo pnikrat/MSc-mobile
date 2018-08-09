@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import type { FieldProps } from 'redux-form';
-import { Label, Item, Input, Text } from 'native-base';
+import { Label, Item, Input } from 'native-base';
 
 type Props = {
   label?: string,

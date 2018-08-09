@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import BaseHeader from '../../common/BaseHeader';
 import { Container, Content, List, ListItem, Text } from 'native-base';
+import BaseHeader from '../../common/BaseHeader';
 
 type Props = {
   navigation: any,
@@ -9,7 +9,7 @@ type Props = {
   lists: Array<Object>,
 }
 
-const ListsScreen = ({navigation, currentUser, lists}: Props) => (
+const ListsScreen = ({ navigation, currentUser, lists }: Props) => (
   <Container>
     <BaseHeader navigation={navigation} headerText="Listy" />
     <Content>
