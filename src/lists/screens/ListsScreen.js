@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Container, Content, List, ListItem, Text } from 'native-base';
+import { Button, Container, Content, Icon, List, ListItem, Text } from 'native-base';
 import BaseHeader from '../../common/BaseHeader';
 
 type Props = {
@@ -11,7 +11,11 @@ type Props = {
 
 const ListsScreen = ({ navigation, currentUser, lists }: Props) => (
   <Container>
-    <BaseHeader navigation={navigation} headerText="Listy" />
+    <BaseHeader navigation={navigation} headerText="Listy">
+      <Button transparent>
+        <Icon name="add" onPress={() => navigation.navigate('NewList', { handleSubmit: () => console.log('DUPPA') })} />
+      </Button>
+    </BaseHeader>
     <Content>
       <List>
         {lists.map(list => (
