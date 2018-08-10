@@ -5,6 +5,7 @@ import type { FormProps } from 'redux-form';
 import { Button, Container, Content, Text, Toast, View } from 'native-base';
 import BaseHeader from '../common/BaseHeader';
 import BaseInput from '../common/BaseInput';
+import styles from './styles/listsStyles';
 
 type Props = {
   onSubmit: (data: Object) => void,
@@ -28,7 +29,7 @@ class NewListForm extends Component<Props> {
               label="Nazwa listy zakupów"
               component={BaseInput}
             />
-            <Button block onPress={handleSubmit}>
+            <Button block onPress={handleSubmit} style={styles.actionButtonMargin}>
               <Text>Stwórz</Text>
             </Button>
           </View>

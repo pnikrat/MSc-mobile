@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import { createStackNavigator, createSwitchNavigator,
   createBottomTabNavigator } from 'react-navigation';
 import { Root } from 'native-base';
