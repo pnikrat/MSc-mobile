@@ -26,6 +26,13 @@ class ListsContainer extends Component<Props> {
     this.props.navigation.navigate('ListsIndex');
   }
 
+  actionSheetOptions = {
+    options: ['Edytuj', 'Usuń', 'Anuluj'],
+    destructiveButtonIndex: 1,
+    cancelButtonIndex: 2,
+    title: 'Wybierz akcję',
+  }
+
   render() {
     const {
       lists, currentUser, navigation,
@@ -36,6 +43,7 @@ class ListsContainer extends Component<Props> {
         lists={lists}
         navigation={navigation}
         onNewListSubmit={this.handleListAdd}
+        actionSheetOptions={this.actionSheetOptions}
       />
     );
   }

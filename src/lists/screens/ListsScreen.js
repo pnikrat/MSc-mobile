@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Button, Container, Content, Icon, List, ListItem, Text } from 'native-base';
+import { Button, Container, Content, Icon, List, ListItem, Text, ActionSheet } from 'native-base';
 import BaseHeader from '../../common/BaseHeader';
 
 type Props = {
@@ -8,10 +8,11 @@ type Props = {
   currentUser: Object,
   lists: Array<Object>,
   onNewListSubmit: (data: Object) => void,
+  actionSheetOptions: Object,
 }
 
 const ListsScreen = ({
-  navigation, currentUser, lists, onNewListSubmit
+  navigation, currentUser, lists, onNewListSubmit, actionSheetOptions,
 }: Props) => (
   <Container>
     <BaseHeader navigation={navigation} headerText="Listy">
@@ -25,7 +26,7 @@ const ListsScreen = ({
     <Content>
       <List>
         {lists.map(list => (
-          <ListItem key={list.id}>
+          <ListItem key={list.id} onLongPress={() => ActionSheet.show(actionSheetOptions, index => console.log(index))}>
             <Text>{list.name}</Text>
           </ListItem>
         ))}

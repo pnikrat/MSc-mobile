@@ -1,7 +1,7 @@
 // @flow
 import * as Expo from 'expo';
 import * as React from 'react';
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Root } from 'native-base';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -46,11 +46,13 @@ export default class Setup extends React.Component<Props, State> {
     }
     return (
       <StyleProvider style={getTheme(variables)}>
-        <Provider store={store}>
-          <PersistGate persistor={persistor} loading={<Expo.AppLoading />}>
-            <App />
-          </PersistGate>
-        </Provider>
+        <Root>
+          <Provider store={store}>
+            <PersistGate persistor={persistor} loading={<Expo.AppLoading />}>
+              <App />
+            </PersistGate>
+          </Provider>
+        </Root>
       </StyleProvider>
     );
   }
