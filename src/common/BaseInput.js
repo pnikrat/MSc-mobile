@@ -11,9 +11,9 @@ type Props = {
 } & FieldProps
 
 const BaseInput = ({
-  input, label, meta, last, placeholder, secureTextEntry, keyboardType,
+  input, label, meta, placeholder, secureTextEntry, keyboardType,
 }: Props) => (
-  <Item error={meta.error && meta.touched} last={last} floatingLabel>
+  <Item error={meta.error && meta.touched} floatingLabel>
     <Label>{label}</Label>
     <Input
       secureTextEntry={secureTextEntry}

@@ -21,12 +21,22 @@ class ListsContainer extends Component<Props> {
     this.props.handleListsFetch();
   }
 
+  handleListAdd = (data: Object) => {
+    this.props.handleListAdd(data);
+    this.props.navigation.navigate('ListsIndex');
+  }
+
   render() {
     const {
       lists, currentUser, navigation,
     } = this.props;
     return (
-      <ListsScreen currentUser={currentUser} lists={lists} navigation={navigation} />
+      <ListsScreen
+        currentUser={currentUser}
+        lists={lists}
+        navigation={navigation}
+        onNewListSubmit={this.handleListAdd}
+      />
     );
   }
 }

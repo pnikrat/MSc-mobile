@@ -7,13 +7,19 @@ type Props = {
   navigation: any,
   currentUser: Object,
   lists: Array<Object>,
+  onNewListSubmit: (data: Object) => void,
 }
 
-const ListsScreen = ({ navigation, currentUser, lists }: Props) => (
+const ListsScreen = ({
+  navigation, currentUser, lists, onNewListSubmit
+}: Props) => (
   <Container>
     <BaseHeader navigation={navigation} headerText="Listy">
       <Button transparent>
-        <Icon name="add" onPress={() => navigation.navigate('NewList', { handleSubmit: () => console.log('DUPPA') })} />
+        <Icon
+          name="add"
+          onPress={() => navigation.navigate('NewList', { onSubmit: onNewListSubmit })}
+        />
       </Button>
     </BaseHeader>
     <Content>
