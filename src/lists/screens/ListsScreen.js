@@ -9,10 +9,11 @@ type Props = {
   lists: Array<Object>,
   onNewListSubmit: (data: Object) => void,
   actionSheetOptions: Object,
+  onListDelete: (number) => void,
 }
 
 const ListsScreen = ({
-  navigation, currentUser, lists, onNewListSubmit, actionSheetOptions,
+  navigation, currentUser, lists, onNewListSubmit, actionSheetOptions, onListDelete,
 }: Props) => (
   <Container>
     <BaseHeader navigation={navigation} headerText="Listy">
@@ -26,7 +27,18 @@ const ListsScreen = ({
     <Content>
       <List>
         {lists.map(list => (
-          <ListItem key={list.id} onLongPress={() => ActionSheet.show(actionSheetOptions, index => console.log(index))}>
+          <ListItem
+            key={list.id}
+            onLongPress={() => {
+              ActionSheet.show(actionSheetOptions, (index) => {
+                if (index === 1) {
+                  onListDelete(list.id);
+                } else {
+                  console.log(list.id);
+                }
+              });
+            }}
+          >
             <Text>{list.name}</Text>
           </ListItem>
         ))}

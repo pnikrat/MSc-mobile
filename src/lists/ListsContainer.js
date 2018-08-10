@@ -21,6 +21,10 @@ class ListsContainer extends Component<Props> {
     this.props.handleListsFetch();
   }
 
+  onListDelete = (id: number) => {
+    this.props.handleListDelete(id);
+  }
+
   handleListAdd = (data: Object) => {
     this.props.handleListAdd(data);
     this.props.navigation.navigate('ListsIndex');
@@ -44,6 +48,7 @@ class ListsContainer extends Component<Props> {
         navigation={navigation}
         onNewListSubmit={this.handleListAdd}
         actionSheetOptions={this.actionSheetOptions}
+        onListDelete={this.onListDelete}
       />
     );
   }
