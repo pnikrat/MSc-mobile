@@ -25,6 +25,12 @@ class ListsContainer extends Component<Props> {
     this.props.handleListDelete(id);
   }
 
+  onListEdit = (data) => {
+    const { id } = data;
+    this.props.handleListEdit(id, data);
+    this.props.navigation.navigate('ListsIndex');
+  }
+
   handleListAdd = (data: Object) => {
     this.props.handleListAdd(data);
     this.props.navigation.navigate('ListsIndex');
@@ -49,6 +55,7 @@ class ListsContainer extends Component<Props> {
         onNewListSubmit={this.handleListAdd}
         actionSheetOptions={this.actionSheetOptions}
         onListDelete={this.onListDelete}
+        onListEdit={this.onListEdit}
       />
     );
   }

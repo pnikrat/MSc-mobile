@@ -11,6 +11,7 @@ type Props = {
   onNewListSubmit: (data: Object) => void,
   actionSheetOptions: Object,
   onListDelete: (number) => void,
+  onListEdit: (data: Object) => void,
 }
 
 class ListsScreen extends Component<Props> {
@@ -28,7 +29,7 @@ class ListsScreen extends Component<Props> {
 
   render() {
     const {
-      navigation, lists, onNewListSubmit, actionSheetOptions, onListDelete,
+      navigation, lists, onNewListSubmit, actionSheetOptions, onListDelete, onListEdit,
     } = this.props;
     const listsItems = lists.sort(this.compare).map(list =>
       (
@@ -42,8 +43,8 @@ class ListsScreen extends Component<Props> {
                 } else {
                   Toast.show({ text: 'Nie możesz usuwać listy innej osoby', buttonText: 'OK' });
                 }
-              } else {
-                console.log(list.id);
+              } else if (index === 0) {
+                navigation.navigate('EditList', { onSubmit: onListEdit, initialValues: list });
               }
             });
           }}

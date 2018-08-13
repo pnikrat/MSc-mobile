@@ -12,6 +12,7 @@ import AccountContainer from '../authentication/AccountContainer';
 import BlankPage from '../stories/screens/BlankPage';
 import TabBarNavigation from './TabBarNavigation';
 import { DecoratedNewListForm } from '../lists/NewListForm';
+import EditListForm from '../lists/EditListForm';
 
 function mapNavigationStateParamsToProps(ScreenComponent) {
   type Props = {
@@ -30,6 +31,7 @@ const ListsStack = createStackNavigator(
   {
     ListsIndex: ListsContainer,
     NewList: mapNavigationStateParamsToProps(DecoratedNewListForm),
+    EditList: mapNavigationStateParamsToProps(EditListForm),
   },
   {
     headerMode: 'none',
