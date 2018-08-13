@@ -9,11 +9,11 @@ import ListsContainer from '../lists/ListsContainer';
 import AuthLoadingContainer from '../authentication/AuthLoadingContainer';
 import LandingContainer from '../landing/LandingContainer';
 import AccountContainer from '../authentication/AccountContainer';
-import BlankPage from '../stories/screens/BlankPage';
 import TabBarNavigation from './TabBarNavigation';
 import { DecoratedNewListForm } from '../lists/NewListForm';
 import EditListForm from '../lists/EditListForm';
 import ItemsContainer from '../items/ItemsContainer';
+import GroupsContainer from '../groups/GroupsContainer';
 
 function mapNavigationStateParamsToProps(ScreenComponent) {
   type Props = {
@@ -27,6 +27,15 @@ function mapNavigationStateParamsToProps(ScreenComponent) {
     }
   };
 }
+
+const GroupsStack = createStackNavigator(
+  {
+    GroupsIndex: GroupsContainer,
+  },
+  {
+    headerMode: 'none',
+  }
+);
 
 const ListsStack = createStackNavigator(
   {
@@ -43,7 +52,7 @@ const ListsStack = createStackNavigator(
 const AppStack = createBottomTabNavigator(
   {
     Lists: ListsStack,
-    Groups: BlankPage,
+    Groups: GroupsStack,
     Account: AccountContainer,
   },
   {

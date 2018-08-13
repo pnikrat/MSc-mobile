@@ -13,6 +13,10 @@ const initialState = {
   listsReducer: {
     lists: [],
   },
+  groupsReducer: {
+    groups: [],
+    currentGroup: {},
+  },
 };
 
 export default initialState;
