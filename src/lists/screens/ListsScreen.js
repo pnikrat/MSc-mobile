@@ -1,6 +1,7 @@
 // @flow
-import React from 'react';
-import { Button, Container, Content, Icon, List, ListItem, Text, ActionSheet } from 'native-base';
+import React, { Component } from 'react';
+import { Button, Container, Content, Icon,
+  List, ListItem, Text, Toast, ActionSheet } from 'native-base';
 import BaseHeader from '../../common/BaseHeader';
 
 type Props = {
@@ -12,39 +13,63 @@ type Props = {
   onListDelete: (number) => void,
 }
 
-const ListsScreen = ({
-  navigation, currentUser, lists, onNewListSubmit, actionSheetOptions, onListDelete,
-}: Props) => (
-  <Container>
-    <BaseHeader navigation={navigation} headerText="Listy">
-      <Button transparent>
-        <Icon
-          name="add"
-          onPress={() => navigation.navigate('NewList', { onSubmit: onNewListSubmit })}
-        />
-      </Button>
-    </BaseHeader>
-    <Content>
-      <List>
-        {lists.map(list => (
-          <ListItem
-            key={list.id}
-            onLongPress={() => {
-              ActionSheet.show(actionSheetOptions, (index) => {
-                if (index === 1) {
+class ListsScreen extends Component<Props> {
+  compare = (x: Object, y: Object) => {
+    if (x.user_id === y.user_id) {
+      if (x.id < y.id) {
+        return -1;
+      }
+      return 1;
+    }
+    return x.user_id === this.props.currentUser.id ? -1 : 1;
+  }
+
+  isCreator = (creatorId: number) => this.props.currentUser.id === creatorId
+
+  render() {
+    const {
+      navigation, lists, onNewListSubmit, actionSheetOptions, onListDelete,
+    } = this.props;
+    const listsItems = lists.sort(this.compare).map(list =>
+      (
+        <ListItem
+          key={list.id}
+          onLongPress={() => {
+            ActionSheet.show(actionSheetOptions, (index) => {
+              if (index === 1) {
+                if (this.isCreator(list.user_id)) {
                   onListDelete(list.id);
                 } else {
-                  console.log(list.id);
+                  Toast.show({ text: 'Nie możesz usuwać listy innej osoby', buttonText: 'OK' });
                 }
-              });
-            }}
-          >
-            <Text>{list.name}</Text>
-          </ListItem>
-        ))}
-      </List>
-    </Content>
-  </Container>
-);
+              } else {
+                console.log(list.id);
+              }
+            });
+          }}
+        >
+          <Text>{list.name}</Text>
+        </ListItem>
+      )
+    );
+    return (
+      <Container>
+        <BaseHeader navigation={navigation} headerText="Listy">
+          <Button transparent>
+            <Icon
+              name="add"
+              onPress={() => navigation.navigate('NewList', { onSubmit: onNewListSubmit })}
+            />
+          </Button>
+        </BaseHeader>
+        <Content>
+          <List>
+            {listsItems}
+          </List>
+        </Content>
+      </Container>
+    )
+  }
+}
 
 export default ListsScreen;
