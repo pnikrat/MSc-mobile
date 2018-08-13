@@ -8,8 +8,9 @@ type Props = {
   navigation: any,
   currentUser: Object,
   lists: Array<Object>,
-  onNewListSubmit: (data: Object) => void,
   actionSheetOptions: Object,
+  onNewListSubmit: (data: Object) => void,
+  onListClick: (number) => void,
   onListDelete: (number) => void,
   onListEdit: (data: Object) => void,
 }
@@ -29,12 +30,13 @@ class ListsScreen extends Component<Props> {
 
   render() {
     const {
-      navigation, lists, onNewListSubmit, actionSheetOptions, onListDelete, onListEdit,
+      navigation, lists, onNewListSubmit, actionSheetOptions, onListClick, onListDelete, onListEdit,
     } = this.props;
     const listsItems = lists.sort(this.compare).map(list =>
       (
         <ListItem
           key={list.id}
+          onPress={() => onListClick(list.id)}
           onLongPress={() => {
             ActionSheet.show(actionSheetOptions, (index) => {
               if (index === 1) {

@@ -31,6 +31,10 @@ class ListsContainer extends Component<Props> {
     this.props.navigation.navigate('ListsIndex');
   }
 
+  openList = (id) => {
+    this.props.navigation.navigate('ItemsIndex', { listId: id });
+  }
+
   handleListAdd = (data: Object) => {
     this.props.handleListAdd(data);
     this.props.navigation.navigate('ListsIndex');
@@ -54,6 +58,7 @@ class ListsContainer extends Component<Props> {
         navigation={navigation}
         onNewListSubmit={this.handleListAdd}
         actionSheetOptions={this.actionSheetOptions}
+        onListClick={this.openList}
         onListDelete={this.onListDelete}
         onListEdit={this.onListEdit}
       />
