@@ -11,10 +11,38 @@ import LandingContainer from '../landing/LandingContainer';
 import AccountContainer from '../authentication/AccountContainer';
 import BlankPage from '../stories/screens/BlankPage';
 import TabBarNavigation from './TabBarNavigation';
+import { DecoratedNewListForm } from '../lists/NewListForm';
+import EditListForm from '../lists/EditListForm';
+import ItemsContainer from '../items/ItemsContainer';
+
+function mapNavigationStateParamsToProps(ScreenComponent) {
+  type Props = {
+    navigation: any,
+  }
+  return class extends React.Component<Props> {
+    static navigationOptions = ScreenComponent.navigationOptions
+    render() {
+      const { params } = this.props.navigation.state;
+      return <ScreenComponent {...this.props} {...params} />;
+    }
+  };
+}
+
+const ListsStack = createStackNavigator(
+  {
+    ListsIndex: ListsContainer,
+    NewList: mapNavigationStateParamsToProps(DecoratedNewListForm),
+    EditList: mapNavigationStateParamsToProps(EditListForm),
+    ItemsIndex: ItemsContainer,
+  },
+  {
+    headerMode: 'none',
+  }
+);
 
 const AppStack = createBottomTabNavigator(
   {
-    Lists: ListsContainer,
+    Lists: ListsStack,
     Groups: BlankPage,
     Account: AccountContainer,
   },

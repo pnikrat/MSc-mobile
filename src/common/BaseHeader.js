@@ -6,9 +6,12 @@ type Props = {
   navigation: any,
   headerText: string,
   hasGoBack?: boolean,
+  children?: React.Node,
 }
 
-const BaseHeader = ({ navigation, headerText, hasGoBack }: Props) => (
+const BaseHeader = ({
+  navigation, headerText, hasGoBack, children
+}: Props) => (
   <Header>
     <Left>
       { hasGoBack &&
@@ -22,7 +25,9 @@ const BaseHeader = ({ navigation, headerText, hasGoBack }: Props) => (
       <Title>{headerText}</Title>
     </Body>
 
-    <Right />
+    <Right>
+      {children}
+    </Right>
   </Header>
 );
 

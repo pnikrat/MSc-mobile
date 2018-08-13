@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { apiCall } from '../services/apiActions';
-import { GET } from '../state/constants';
-import { setLists } from './state/ListsActions';
+import { GET, POST, PUT, DELETE } from '../state/constants';
+import { setLists, addList, editList, removeList } from './state/ListsActions';
 import ListsScreen from './screens/ListsScreen';
 
 type Props = {
@@ -11,6 +11,9 @@ type Props = {
   currentUser: Object,
   lists: Array<Object>,
   handleListsFetch: () => void,
+  handleListAdd: (Object) => void,
+  handleListDelete: (number) => void,
+  handleListEdit: (number, Object) => void,
 }
 
 class ListsContainer extends Component<Props> {
@@ -18,12 +21,47 @@ class ListsContainer extends Component<Props> {
     this.props.handleListsFetch();
   }
 
+  onListDelete = (id: number) => {
+    this.props.handleListDelete(id);
+  }
+
+  onListEdit = (data) => {
+    const { id } = data;
+    this.props.handleListEdit(id, data);
+    this.props.navigation.navigate('ListsIndex');
+  }
+
+  openList = (id) => {
+    this.props.navigation.navigate('ItemsIndex', { listId: id });
+  }
+
+  handleListAdd = (data: Object) => {
+    this.props.handleListAdd(data);
+    this.props.navigation.navigate('ListsIndex');
+  }
+
+  actionSheetOptions = {
+    options: ['Edytuj', 'Usuń', 'Anuluj'],
+    destructiveButtonIndex: 1,
+    cancelButtonIndex: 2,
+    title: 'Wybierz akcję',
+  }
+
   render() {
     const {
       lists, currentUser, navigation,
     } = this.props;
     return (
-      <ListsScreen currentUser={currentUser} lists={lists} navigation={navigation} />
+      <ListsScreen
+        currentUser={currentUser}
+        lists={lists}
+        navigation={navigation}
+        onNewListSubmit={this.handleListAdd}
+        actionSheetOptions={this.actionSheetOptions}
+        onListClick={this.openList}
+        onListDelete={this.onListDelete}
+        onListEdit={this.onListEdit}
+      />
     );
   }
 }
@@ -35,6 +73,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleListsFetch: () => dispatch(apiCall('/lists', setLists, GET)),
+  handleListAdd: list => dispatch(apiCall('/lists', addList, POST, list)),
+  handleListDelete: id => dispatch(apiCall(`/lists/${id}`, () => removeList(id), DELETE)),
+  handleListEdit: (id, data) => dispatch(apiCall(`/lists/${id}`, editList, PUT, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListsContainer);

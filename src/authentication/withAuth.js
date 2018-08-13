@@ -29,12 +29,12 @@ function withAuth(WrappedForm: React.ComponentType<P>) {
       const { response: { status, data: { errors } }, response } = error;
       if (response && status === errorCode) {
         if (errors.full_messages) {
-          Toast.show({text: errors.full_messages[0], buttonText: 'OK'});
+          Toast.show({ text: errors.full_messages[0], buttonText: 'OK' });
         } else {
-          Toast.show({text: 'Autoryzacja nie powiodła się.', buttonText: 'OK'});
+          Toast.show({ text: 'Autoryzacja nie powiodła się.', buttonText: 'OK' });
         }
       } else {
-        Toast.show({text: 'Błąd serwera, proszę spróbować później.', buttonText: 'OK'});
+        Toast.show({ text: 'Błąd serwera, proszę spróbować później.', buttonText: 'OK' });
       }
     }
 
