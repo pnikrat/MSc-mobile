@@ -28,6 +28,7 @@ class GroupsContainer extends Component<Props> {
 
   handleGroupAdd = (data: Object) => {
     this.props.handleGroupAdd(data);
+    this.props.navigation.navigate('GroupsIndex');
   }
 
   handleGroupUpdate = (data: Object) => {
@@ -60,6 +61,8 @@ class GroupsContainer extends Component<Props> {
       <GroupsScreen
         navigation={navigation}
         groups={groups}
+        currentUser={currentUser}
+        onNewGroupSubmit={this.handleGroupAdd}
       />
     );
   }
