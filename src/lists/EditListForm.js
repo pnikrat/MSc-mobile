@@ -9,6 +9,7 @@ import styles from '../styles/common';
 import { validateListForm } from './NewListForm';
 
 type Props = {
+  navigation: any,
   onSubmit: (data: Object) => void,
   initialValues: Object,
 } & FormProps

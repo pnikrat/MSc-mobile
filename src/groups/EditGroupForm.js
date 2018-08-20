@@ -9,6 +9,7 @@ import styles from '../styles/common';
 import { validateGroupForm } from './NewGroupForm';
 
 type Props = {
+  navigation: any,
   onSubmit: (data: Object) => void,
   initialValues: Object,
 } & FormProps

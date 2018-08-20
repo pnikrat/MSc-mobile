@@ -8,6 +8,7 @@ import BaseInput from '../common/BaseInput';
 import styles from '../styles/common';
 
 type Props = {
+  navigation: any,
   onSubmit: (data: Object) => void,
 } & FormProps
 
