@@ -3,19 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
-import { setGroups, addGroupAndRedirectBack, showGroup,
-  updateGroup, deleteGroup,
-  redirectBack, } from './state/GroupsActions';
+import { setGroups, updateGroup, deleteGroup,
+  redirectBack, setCurrentGroup, addGroup, } from './state/GroupsActions';
 import GroupsScreen from './screens/GroupsScreen';
 
 type Props = {
   navigation: any,
   groups: Array<Object>,
-  currentGroup: Object,
   currentUser: Object,
   handleGroupsFetch: () => void,
   handleGroupAdd: (Object) => void,
-  handleGroupShow: (number, Function) => void,
+  handleGroupShow: (number) => void,
   handleGroupUpdate: (number, Object) => void,
   handleGroupDelete: (number) => void,
   handleInviteCreate: (Object) => void,
@@ -38,7 +36,7 @@ class GroupsContainer extends Component<Props> {
   }
 
   handleGroupShow = (id: number) => {
-    this.props.handleGroupShow(id, showGroup);
+    this.props.handleGroupShow(id);
   }
 
   handleGroupDelete = (id: number) => {
@@ -58,7 +56,7 @@ class GroupsContainer extends Component<Props> {
 
   render() {
     const {
-      navigation, groups, currentGroup, currentUser,
+      navigation, groups, currentUser,
     } = this.props;
     return (
       <GroupsScreen
@@ -69,6 +67,7 @@ class GroupsContainer extends Component<Props> {
         onNewGroupSubmit={this.handleGroupAdd}
         onGroupDelete={this.handleGroupDelete}
         onGroupEdit={this.handleGroupUpdate}
+        handleSetCurrentGroup={this.handleGroupShow}
       />
     );
   }
@@ -76,14 +75,13 @@ class GroupsContainer extends Component<Props> {
 
 const mapStateToProps = state => ({
   groups: state.groupsReducer.groups,
-  currentGroup: state.groupsReducer.currentGroup,
   currentUser: state.reduxTokenAuth.currentUser.attributes,
 });
 
 const mapDispatchToProps = dispatch => ({
   handleGroupsFetch: () => dispatch(apiCall('/groups', setGroups, GET)),
-  handleGroupAdd: group => dispatch(apiCall('/groups', addGroupAndRedirectBack, POST, group)),
-  handleGroupShow: (id, callback) => dispatch(apiCall(`/groups/${id}`, callback, GET)),
+  handleGroupAdd: group => dispatch(apiCall('/groups', addGroup, POST, group)),
+  handleGroupShow: id => dispatch(apiCall(`/groups/${id}`, setCurrentGroup, GET)),
   handleGroupUpdate: (id, data) => {
     dispatch(apiCall(`/groups/${id}`, updateGroup, PUT, data));
   },

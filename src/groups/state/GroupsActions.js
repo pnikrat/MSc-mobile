@@ -30,25 +30,10 @@ function deleteGroup(id) {
   };
 }
 
-function addGroupAndRedirectBack(response) {
-  return (dispatch) => {
-    dispatch(addGroup(response));
-    // dispatch(push('/groups'));
-  };
-}
-
 function setCurrentGroup(response) {
   return {
     type: SET_CURRENT_GROUP,
     group: response.data,
-  };
-}
-
-function showGroup(response) {
-  return (dispatch) => {
-    const { id } = response.data;
-    dispatch(setCurrentGroup(response));
-    // dispatch(push(`/groups/${id}`));
   };
 }
 
@@ -71,7 +56,7 @@ function redirectBack(response) {
 }
 
 export {
-  setGroups, addGroupAndRedirectBack, showGroup,
+  setGroups, addGroup,
   updateGroup, deleteGroup, redirectBack,
   setCurrentGroup,
 };
