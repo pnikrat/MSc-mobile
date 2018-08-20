@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
 import { setGroups, addGroupAndRedirectBack, showGroup,
-  editGroup, updateGroupAndRedirectBack, deleteGroup,
+  updateGroup, deleteGroup,
   redirectBack, } from './state/GroupsActions';
 import GroupsScreen from './screens/GroupsScreen';
 
@@ -34,15 +34,11 @@ class GroupsContainer extends Component<Props> {
   handleGroupUpdate = (data: Object) => {
     const { id } = data;
     this.props.handleGroupUpdate(id, data);
+    this.props.navigation.navigate('GroupsIndex');
   }
 
   handleGroupShow = (id: number) => {
     this.props.handleGroupShow(id, showGroup);
-  }
-
-  handleGroupEditRedirect = (e: Object, id: number) => {
-    e.stopPropagation();
-    this.props.handleGroupShow(id, editGroup);
   }
 
   handleGroupDelete = (id: number) => {
@@ -51,6 +47,13 @@ class GroupsContainer extends Component<Props> {
 
   handleInviteCreate = (data: Object) => {
     this.props.handleInviteCreate(data);
+  }
+
+  actionSheetOptions = {
+    options: ['Edytuj', 'Usuń', 'Anuluj'],
+    destructiveButtonIndex: 1,
+    cancelButtonIndex: 2,
+    title: 'Wybierz akcję',
   }
 
   render() {
@@ -62,7 +65,10 @@ class GroupsContainer extends Component<Props> {
         navigation={navigation}
         groups={groups}
         currentUser={currentUser}
+        actionSheetOptions={this.actionSheetOptions}
         onNewGroupSubmit={this.handleGroupAdd}
+        onGroupDelete={this.handleGroupDelete}
+        onGroupEdit={this.handleGroupUpdate}
       />
     );
   }
@@ -79,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
   handleGroupAdd: group => dispatch(apiCall('/groups', addGroupAndRedirectBack, POST, group)),
   handleGroupShow: (id, callback) => dispatch(apiCall(`/groups/${id}`, callback, GET)),
   handleGroupUpdate: (id, data) => {
-    dispatch(apiCall(`/groups/${id}`, updateGroupAndRedirectBack, PUT, data));
+    dispatch(apiCall(`/groups/${id}`, updateGroup, PUT, data));
   },
   handleGroupDelete: id => dispatch(apiCall(`/groups/${id}`, () => deleteGroup(id), DELETE)),
   handleInviteCreate: data => dispatch(apiCall('/invites', redirectBack, POST, data)),

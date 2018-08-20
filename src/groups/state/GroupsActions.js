@@ -37,13 +37,6 @@ function addGroupAndRedirectBack(response) {
   };
 }
 
-function updateGroupAndRedirectBack(response) {
-  return (dispatch) => {
-    dispatch(updateGroup(response));
-    // dispatch(push('/groups'));
-  };
-}
-
 function setCurrentGroup(response) {
   return {
     type: SET_CURRENT_GROUP,
@@ -56,14 +49,6 @@ function showGroup(response) {
     const { id } = response.data;
     dispatch(setCurrentGroup(response));
     // dispatch(push(`/groups/${id}`));
-  };
-}
-
-function editGroup(response) {
-  return (dispatch) => {
-    const { id } = response.data;
-    dispatch(setCurrentGroup(response));
-    // dispatch(push(`/groups/${id}/edit`));
   };
 }
 
@@ -86,7 +71,7 @@ function redirectBack(response) {
 }
 
 export {
-  setGroups, addGroupAndRedirectBack, showGroup, editGroup,
-  updateGroupAndRedirectBack, deleteGroup, redirectBack,
+  setGroups, addGroupAndRedirectBack, showGroup,
+  updateGroup, deleteGroup, redirectBack,
   setCurrentGroup,
 };
