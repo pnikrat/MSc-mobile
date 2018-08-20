@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
 import { setGroups, updateGroup, deleteGroup,
-  redirectBack, setCurrentGroup, addGroup, } from './state/GroupsActions';
+  setCurrentGroup, addGroup, } from './state/GroupsActions';
 import GroupsScreen from './screens/GroupsScreen';
 
 type Props = {
@@ -16,7 +16,6 @@ type Props = {
   handleGroupShow: (number) => void,
   handleGroupUpdate: (number, Object) => void,
   handleGroupDelete: (number) => void,
-  handleInviteCreate: (Object) => void,
 }
 
 class GroupsContainer extends Component<Props> {
@@ -41,10 +40,6 @@ class GroupsContainer extends Component<Props> {
 
   handleGroupDelete = (id: number) => {
     this.props.handleGroupDelete(id);
-  }
-
-  handleInviteCreate = (data: Object) => {
-    this.props.handleInviteCreate(data);
   }
 
   actionSheetOptions = {
@@ -86,7 +81,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(apiCall(`/groups/${id}`, updateGroup, PUT, data));
   },
   handleGroupDelete: id => dispatch(apiCall(`/groups/${id}`, () => deleteGroup(id), DELETE)),
-  handleInviteCreate: data => dispatch(apiCall('/invites', redirectBack, POST, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer);
