@@ -1,5 +1,6 @@
 import { SET_GROUPS, ADD_GROUP, SET_CURRENT_GROUP,
   UPDATE_GROUP, DELETE_GROUP } from '../../state/constants';
+import { apiSetSuccess } from '../../services/apiActions';
 
 function setGroups(response) {
   return {
@@ -37,11 +38,13 @@ function setCurrentGroup(response) {
 }
 
 function redirectBack(navigation) {
-  return (response) => {
-    const { recipient_id: inviteeId } = response.data;
-    const successMessage = inviteeId ? 'Użytkownik został dodany do grupy' : 'Wysłano zaproszenie na adres email użytkownika';
-    navigation.goBack();
-  };
+  return response =>
+    (dispatch) => {
+      const { recipient_id: inviteeId } = response.data;
+      const successMessage = inviteeId ? 'Użytkownik został dodany do grupy' : 'Wysłano zaproszenie na adres email użytkownika';
+      dispatch(apiSetSuccess([successMessage]));
+      navigation.goBack();
+    };
 }
 
 export {

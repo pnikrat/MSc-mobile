@@ -4,12 +4,12 @@ import * as React from 'react';
 import { StyleProvider, Root } from 'native-base';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-
 import { store, persistor } from '../state/store';
 import App from '../main/App';
 import getTheme from '../theme/components';
 import variables from '../theme/variables/platform';
 import { verifyCredentials } from '../authConfig';
+import ApiMessageContainer from '../common/ApiMessageContainer';
 
 export interface Props {}
 export interface State {
@@ -49,6 +49,7 @@ export default class Setup extends React.Component<Props, State> {
         <Root>
           <Provider store={store}>
             <PersistGate persistor={persistor} loading={<Expo.AppLoading />}>
+              <ApiMessageContainer />
               <App />
             </PersistGate>
           </Provider>

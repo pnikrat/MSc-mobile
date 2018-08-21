@@ -68,4 +68,6 @@ export {
   apiShowLoading,
   apiThrowError,
   apiSetSuccess,
+  apiRemoveSuccess,
+  apiRemoveError,
 };
