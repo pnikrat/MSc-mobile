@@ -6,15 +6,13 @@ import { Button, Container, Content, Text, Toast, View } from 'native-base';
 import BaseHeader from '../common/BaseHeader';
 import BaseInput from '../common/BaseInput';
 import styles from '../styles/common';
-import { validateListForm } from './NewListForm';
 
 type Props = {
   navigation: any,
   onSubmit: (data: Object) => void,
-  initialValues: Object,
 } & FormProps
 
-class EditListForm extends Component<Props> {
+class NewGroupForm extends Component<Props> {
   props: Props
 
   render() {
@@ -23,17 +21,17 @@ class EditListForm extends Component<Props> {
     } = this.props;
     return (
       <Container>
-        <BaseHeader headerText="Edytuj listę zakupów" navigation={navigation} hasGoBack />
+        <BaseHeader headerText="Nowa grupa" navigation={navigation} hasGoBack />
         <Content padder>
           { errors && Toast.show({ text: errors.name, buttonText: 'OK' }) }
           <View padder>
             <Field
               name="name"
-              label="Nazwa listy zakupów"
+              label="Nazwa grupy"
               component={BaseInput}
             />
             <Button block onPress={handleSubmit} style={styles.actionButtonMargin}>
-              <Text>Edytuj</Text>
+              <Text>Stwórz</Text>
             </Button>
           </View>
         </Content>
@@ -42,7 +40,15 @@ class EditListForm extends Component<Props> {
   }
 }
 
-export default reduxForm({
-  form: 'editList',
-  validateListForm,
-})(EditListForm);
+const validateGroupForm = (values: Object) => {
+  const errors = {};
+  if (!values.name) {
+    errors.name = 'Pole wymagane';
+  }
+  return errors;
+};
+
+const DecoratedNewGroupForm = reduxForm({ form: 'newGroup', validateGroupForm })(NewGroupForm);
+export {
+  DecoratedNewGroupForm, validateGroupForm
+};

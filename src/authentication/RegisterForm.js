@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { Button, Text, View } from 'native-base';
 import BaseInput from '../common/BaseInput';
-import styles from './styles/authFormsStyles';
+import styles from '../styles/common';
 
 type Props = {
   onSubmit: (data: Object) => void,

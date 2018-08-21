@@ -13,6 +13,14 @@ const initialState = {
   listsReducer: {
     lists: [],
   },
+  apiMessagesReducer: {
+    apiError: null,
+    apiSuccess: null,
+  },
+  groupsReducer: {
+    groups: [],
+    currentGroup: {},
+  },
 };
 
 export default initialState;

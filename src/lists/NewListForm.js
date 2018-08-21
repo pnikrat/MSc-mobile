@@ -5,9 +5,10 @@ import type { FormProps } from 'redux-form';
 import { Button, Container, Content, Text, Toast, View } from 'native-base';
 import BaseHeader from '../common/BaseHeader';
 import BaseInput from '../common/BaseInput';
-import styles from './styles/listsStyles';
+import styles from '../styles/common';
 
 type Props = {
+  navigation: any,
   onSubmit: (data: Object) => void,
 } & FormProps
 

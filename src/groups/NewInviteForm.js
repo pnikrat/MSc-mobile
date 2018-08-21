@@ -6,7 +6,6 @@ import { Button, Container, Content, Text, Toast, View } from 'native-base';
 import BaseHeader from '../common/BaseHeader';
 import BaseInput from '../common/BaseInput';
 import styles from '../styles/common';
-import { validateListForm } from './NewListForm';
 
 type Props = {
   navigation: any,
@@ -14,7 +13,7 @@ type Props = {
   initialValues: Object,
 } & FormProps
 
-class EditListForm extends Component<Props> {
+class NewInviteForm extends Component<Props> {
   props: Props
 
   render() {
@@ -23,17 +22,18 @@ class EditListForm extends Component<Props> {
     } = this.props;
     return (
       <Container>
-        <BaseHeader headerText="Edytuj listę zakupów" navigation={navigation} hasGoBack />
+        <BaseHeader headerText="Nowe zaproszenie" navigation={navigation} hasGoBack />
         <Content padder>
-          { errors && Toast.show({ text: errors.name, buttonText: 'OK' }) }
+          { errors && Toast.show({ text: errors.email, buttonText: 'OK' }) }
           <View padder>
             <Field
-              name="name"
-              label="Nazwa listy zakupów"
+              name="email"
+              label="Email zapraszanego"
               component={BaseInput}
+              keyboardType="email-address"
             />
             <Button block onPress={handleSubmit} style={styles.actionButtonMargin}>
-              <Text>Edytuj</Text>
+              <Text>Zaproś</Text>
             </Button>
           </View>
         </Content>
@@ -42,7 +42,12 @@ class EditListForm extends Component<Props> {
   }
 }
 
-export default reduxForm({
-  form: 'editList',
-  validateListForm,
-})(EditListForm);
+const validate = (values: Object) => {
+  const errors = {};
+  if (!values.email) {
+    errors.email = 'Pole wymagane';
+  }
+  return errors;
+};
+
+export default reduxForm({ form: 'newInvite', validate })(NewInviteForm);

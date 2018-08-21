@@ -9,11 +9,15 @@ import ListsContainer from '../lists/ListsContainer';
 import AuthLoadingContainer from '../authentication/AuthLoadingContainer';
 import LandingContainer from '../landing/LandingContainer';
 import AccountContainer from '../authentication/AccountContainer';
-import BlankPage from '../stories/screens/BlankPage';
 import TabBarNavigation from './TabBarNavigation';
 import { DecoratedNewListForm } from '../lists/NewListForm';
 import EditListForm from '../lists/EditListForm';
 import ItemsContainer from '../items/ItemsContainer';
+import GroupsContainer from '../groups/GroupsContainer';
+import { DecoratedNewGroupForm } from '../groups/NewGroupForm';
+import EditGroupForm from '../groups/EditGroupForm';
+import GroupDetailsScreen from '../groups/screens/GroupDetailsScreen';
+import NewInviteForm from '../groups/NewInviteForm';
 
 function mapNavigationStateParamsToProps(ScreenComponent) {
   type Props = {
@@ -27,6 +31,19 @@ function mapNavigationStateParamsToProps(ScreenComponent) {
     }
   };
 }
+
+const GroupsStack = createStackNavigator(
+  {
+    GroupsIndex: GroupsContainer,
+    NewGroup: mapNavigationStateParamsToProps(DecoratedNewGroupForm),
+    EditGroup: mapNavigationStateParamsToProps(EditGroupForm),
+    GroupDetails: mapNavigationStateParamsToProps(GroupDetailsScreen),
+    NewInvite: mapNavigationStateParamsToProps(NewInviteForm),
+  },
+  {
+    headerMode: 'none',
+  }
+);
 
 const ListsStack = createStackNavigator(
   {
@@ -43,7 +60,7 @@ const ListsStack = createStackNavigator(
 const AppStack = createBottomTabNavigator(
   {
     Lists: ListsStack,
-    Groups: BlankPage,
+    Groups: GroupsStack,
     Account: AccountContainer,
   },
   {

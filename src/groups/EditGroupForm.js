@@ -6,7 +6,7 @@ import { Button, Container, Content, Text, Toast, View } from 'native-base';
 import BaseHeader from '../common/BaseHeader';
 import BaseInput from '../common/BaseInput';
 import styles from '../styles/common';
-import { validateListForm } from './NewListForm';
+import { validateGroupForm } from './NewGroupForm';
 
 type Props = {
   navigation: any,
@@ -14,7 +14,7 @@ type Props = {
   initialValues: Object,
 } & FormProps
 
-class EditListForm extends Component<Props> {
+class EditGroupForm extends Component<Props> {
   props: Props
 
   render() {
@@ -23,13 +23,13 @@ class EditListForm extends Component<Props> {
     } = this.props;
     return (
       <Container>
-        <BaseHeader headerText="Edytuj listę zakupów" navigation={navigation} hasGoBack />
+        <BaseHeader headerText="Edytuj grupę" navigation={navigation} hasGoBack />
         <Content padder>
           { errors && Toast.show({ text: errors.name, buttonText: 'OK' }) }
           <View padder>
             <Field
               name="name"
-              label="Nazwa listy zakupów"
+              label="Nazwa grupy"
               component={BaseInput}
             />
             <Button block onPress={handleSubmit} style={styles.actionButtonMargin}>
@@ -43,6 +43,6 @@ class EditListForm extends Component<Props> {
 }
 
 export default reduxForm({
-  form: 'editList',
-  validateListForm,
-})(EditListForm);
+  form: 'editGroup',
+  validateGroupForm,
+})(EditGroupForm);
