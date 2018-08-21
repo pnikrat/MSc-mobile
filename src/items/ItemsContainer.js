@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Text } from 'native-base';
+import { Container, Content, } from 'native-base';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
 import { addItem, removeItem, editItem, setCurrentListAndFetchItems } from './state/ItemsActions';
 import BaseHeader from '../common/BaseHeader';
+import ItemsScreen from './screens/ItemsScreen';
 
 type Props = {
   navigation: any,
@@ -25,13 +26,21 @@ class ItemsContainer extends Component<Props> {
   }
 
   render() {
-    const { navigation, currentList } = this.props;
+    const {
+      navigation, currentList, items, lists,
+    } = this.props;
     return (
       <Container>
         {currentList && <BaseHeader navigation={navigation} headerText={currentList.name} hasGoBack /> }
-        <Content padder>
-          {currentList && <Text>{currentList.name}</Text>}
-          <Text>This it items container</Text>
+        <Content>
+          { items.length > 0 &&
+            <ItemsScreen
+              navigation={navigation}
+              currentList={currentList}
+              items={items}
+              lists={lists}
+            />
+          }
         </Content>
       </Container>
     );
