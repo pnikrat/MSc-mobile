@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, } from 'native-base';
+import { Container } from 'native-base';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
 import { addItem, removeItem, editItem, setCurrentListAndFetchItems } from './state/ItemsActions';

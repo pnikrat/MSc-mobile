@@ -63,7 +63,7 @@ class SingleItem extends React.Component<Props> {
             <View style={styles.centerVertically}>
               { item.price &&
                 <Text>
-                  {`${Number(item.price)}`}
+                  {`${Number(item.price)} zł`}
                 </Text>
               }
             </View>

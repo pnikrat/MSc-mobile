@@ -8,7 +8,7 @@ const apiMiddleware = ({ dispatch }) => next => (action) => {
   }
 
   dispatch(apiStart());
-  dispatch(apiShowLoading());
+  setTimeout(() => dispatch(apiShowLoading()), 1500);
 
   const { payload } = action;
   const { success } = action.meta;
