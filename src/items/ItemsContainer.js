@@ -7,6 +7,7 @@ import { GET, POST, PUT, DELETE } from '../state/constants';
 import { addItem, removeItem, editItem, setCurrentListAndFetchItems } from './state/ItemsActions';
 import BaseHeader from '../common/BaseHeader';
 import ItemsScreen from './screens/ItemsScreen';
+import LoadableContent from '../common/LoadableContent';
 
 type Props = {
   navigation: any,
@@ -38,7 +39,7 @@ class ItemsContainer extends Component<Props> {
     return (
       <Container>
         {currentList && <BaseHeader navigation={navigation} headerText={currentList.name} hasGoBack /> }
-        <Content>
+        <LoadableContent>
           { items.length > 0 &&
             <ItemsScreen
               navigation={navigation}
@@ -48,7 +49,7 @@ class ItemsContainer extends Component<Props> {
               onItemStateChange={this.onItemStateChange}
             />
           }
-        </Content>
+        </LoadableContent>
       </Container>
     );
   }
