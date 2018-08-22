@@ -24,6 +24,12 @@ class ItemsContainer extends Component<Props> {
     const listId = this.props.navigation.getParam('listId');
     this.props.handleSetCurrentList(listId);
   }
+  onItemStateChange = (item, desiredState) => {
+    const listId = this.props.currentList.id;
+    const { id } = item;
+    const data = { state: desiredState };
+    this.props.handleItemEdit(listId, id, data);
+  }
 
   render() {
     const {
@@ -39,6 +45,7 @@ class ItemsContainer extends Component<Props> {
               currentList={currentList}
               items={items}
               lists={lists}
+              onItemStateChange={this.onItemStateChange}
             />
           }
         </Content>
