@@ -19,11 +19,16 @@ class SingleItem extends Component<Props> {
     return (
       <SwipeRow
         disableRightSwipe
-        rightOpenValue={-75}
+        rightOpenValue={-150}
         right={
-          <Button danger onPress={() => alert('Trash')}>
-            <Icon active name="trash" />
-          </Button>
+          <View style={styles.stateButtonsContainer}>
+            <Button success style={styles.stateButtons}>
+              <Icon active name="checkmark" />
+            </Button>
+            <Button warning style={styles.stateButtons}>
+              <Icon active name="close" />
+            </Button>
+          </View>
         }
         body={
           <View style={styles.itemContainer}>

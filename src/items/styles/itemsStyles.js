@@ -18,5 +18,13 @@ const styles: any = StyleSheet.create({
   marginBottom: {
     marginBottom: 3,
   },
+  stateButtonsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  stateButtons: {
+    height: null,
+  }
 });
 export default styles;
