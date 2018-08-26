@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Container } from 'native-base';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
-import { addItem, removeItem, editItem, setCurrentListAndFetchItems } from './state/ItemsActions';
+import { addItem, removeItem, editItem,
+  setCurrentListAndFetchItems, massUpdateItems, massMoveItems } from './state/ItemsActions';
 import BaseHeader from '../common/BaseHeader';
 import ItemsScreen from './screens/ItemsScreen';
 import LoadableContent from '../common/LoadableContent';
@@ -18,18 +19,67 @@ type Props = {
   handleItemAdd: (number, Object) => void,
   handleItemDelete: (number, number) => void,
   handleItemEdit: (number, number, Object) => void,
+  handleRemoveBoughtItems: (number, Object) => void,
+  handleMoveMissingItems: (number, Object) => void,
 }
+
+const byState = (x: Object, state: string) => x.filter(i => i.aasm_state === state);
 
 class ItemsContainer extends Component<Props> {
   componentDidMount = () => {
     const listId = this.props.navigation.getParam('listId');
     this.props.handleSetCurrentList(listId);
   }
+
+  onItemDelete = (id) => {
+    const listId = this.props.currentList.id;
+    this.props.handleItemDelete(listId, id);
+  }
+
+  onItemEdit = (data) => {
+    const listId = this.props.currentList.id;
+    const { id } = data;
+    let modifiedData;
+    if (data.list_id !== listId) {
+      modifiedData = { ...data, target_list: data.list_id, state: 'to_buy' };
+    }
+    this.props.handleItemEdit(listId, id, modifiedData || data);
+  }
+
   onItemStateChange = (item, desiredState) => {
     const listId = this.props.currentList.id;
     const { id } = item;
     const data = { state: desiredState };
     this.props.handleItemEdit(listId, id, data);
+  }
+
+  removeBoughtItems = () => {
+    const boughtItemsIds = byState(this.props.items, 'bought').map(i => i.id);
+    const params = { ids: boughtItemsIds, state: 'deleted' };
+    const listId = this.props.currentList.id;
+    this.props.handleRemoveBoughtItems(listId, params);
+  }
+
+  moveMissingItems = (targetListId) => {
+    const missingItemsIds = byState(this.props.items, 'missing').map(i => i.id);
+    const params = { ids: missingItemsIds, target_list: targetListId, state: 'to_buy' };
+    const listId = this.props.currentList.id;
+    this.props.handleMoveMissingItems(listId, params);
+  }
+
+  handleItemAdd = (data) => {
+    const listId = this.props.currentList.id;
+    const existingItem = this.props.items.filter(
+      i => i.name.localeCompare(data.name, 'en', { sensitivity: 'base' }) === 0);
+    if (existingItem.length > 0) {
+      const item = existingItem[0];
+      if (item.aasm_state === 'deleted') {
+        data.state = 'to_buy';
+      }
+      this.props.handleItemEdit(listId, item.id, data);
+    } else {
+      this.props.handleItemAdd(listId, data);
+    }
   }
 
   render() {
@@ -69,6 +119,12 @@ const mapDispatchToProps = dispatch => ({
   },
   handleItemEdit: (listId, id, data) => {
     dispatch(apiCall(`/lists/${listId}/items/${id}`, editItem, PUT, data));
+  },
+  handleRemoveBoughtItems: (listId, data) => {
+    dispatch(apiCall(`/lists/${listId}/items`, massUpdateItems, PUT, data));
+  },
+  handleMoveMissingItems: (listId, data) => {
+    dispatch(apiCall(`/lists/${listId}/items`, massMoveItems, PUT, data));
   },
 });
 
