@@ -10,6 +10,7 @@ import { addItem, removeItem, editItem,
 import BaseHeader from '../common/BaseHeader';
 import ItemsScreen from './screens/ItemsScreen';
 import LoadableContent from '../common/LoadableContent';
+import ListSubscription from '../websockets/ListSubscription';
 
 type Props = {
   navigation: any,
@@ -18,6 +19,7 @@ type Props = {
   lists: Object,
   isRemoveBoughtDisabled: boolean,
   isMoveMissingDisabled: boolean,
+  rawDispatch: (Object) => void,
   clearForm: () => void,
   handleSetCurrentList: (number) => void,
   handleItemAdd: (number, Object) => void,
@@ -33,6 +35,13 @@ class ItemsContainer extends Component<Props> {
   componentDidMount = () => {
     const listId = this.props.navigation.getParam('listId');
     this.props.handleSetCurrentList(listId);
+
+    this.listChannel = new ListSubscription(listId, this.props.rawDispatch);
+    this.listChannel.init(this.channelSubscribe);
+  }
+
+  componentWillUnmount = () => {
+    this.listChannel.unsubscribe();
   }
 
   onItemDelete = (id) => {
@@ -57,6 +66,8 @@ class ItemsContainer extends Component<Props> {
     const data = { state: desiredState };
     this.props.handleItemEdit(listId, id, data);
   }
+
+  channelSubscribe = () => this.listChannel.subscribe()
 
   removeBoughtItems = () => {
     const boughtItemsIds = byState(this.props.items, 'bought').map(i => i.id);
@@ -89,6 +100,9 @@ class ItemsContainer extends Component<Props> {
     }
     this.props.navigation.navigate('ItemsIndex');
   }
+
+  props: Props
+  listChannel: ListSubscription
 
   render() {
     const {
@@ -136,6 +150,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  rawDispatch: dispatch,
   clearForm: () => dispatch(reset('newItem')),
   handleSetCurrentList: id => dispatch(apiCall(`/lists/${id}`, setCurrentListAndFetchItems, GET)),
   handleItemAdd: (listId, data) => dispatch(apiCall(`/lists/${listId}/items`, addItem, POST, data)),
