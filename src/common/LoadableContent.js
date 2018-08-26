@@ -13,14 +13,14 @@ function LoadableContent({ isLoading, children }: Props) {
   return (
     <React.Fragment>
       { isLoading ? (
-        <Content>
+        <Content contentContainerStyle={{ flex: 1 }}>
           {children}
           <View style={{ ...StyleSheet.absoluteFillObject }} pointerEvents="box-none">
             <Spinner />
           </View>
         </Content>
       ) : (
-        <Content>
+        <Content contentContainerStyle={{ flex: 1 }}>
           {children}
         </Content>
       )}

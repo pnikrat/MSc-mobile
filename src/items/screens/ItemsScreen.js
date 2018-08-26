@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Text, ListItem } from 'native-base';
-import { SectionList } from 'react-native';
+import { Text, ListItem, View } from 'native-base';
+import { Platform, SectionList } from 'react-native';
 import SingleItem from './SingleItem';
 import styles from '../styles/itemsStyles';
 
@@ -15,6 +15,14 @@ type Props = {
 }
 
 class ItemsScreen extends React.Component<Props> {
+  getPriceValue = (price: number): string => {
+    if (Platform.OS === 'ios') {
+      return price.toLocaleString('pl', { style: 'currency', currency: 'PLN' });
+    } else {
+      return `${price.toFixed(2).toString()} zł`;
+    }
+  }
+
   props: Props
 
   compare = (x: Object, y: Object) => {
@@ -58,28 +66,34 @@ class ItemsScreen extends React.Component<Props> {
     const boughtTotal = this.mapAndReduce(this.bought, items);
 
     return (
-      <SectionList
-        sections={[
-          toBuyItems,
-          boughtItems,
-          missingItems,
-        ]}
-        renderSectionHeader={({ section: { title } }) => (
-          <ListItem itemDivider>
-            <Text style={styles.itemSection}>{title}</Text>
-          </ListItem>
-        )}
-        renderItem={({ item }) => (
-          <SingleItem
-            navigation={navigation}
-            item={item}
-            onItemStateChange={onItemStateChange}
-            actionSheetOptions={this.actionSheetOptions}
-            onItemEdit={onItemEdit}
-          />
-        )}
-        keyExtractor={item => item.id}
-      />
+      <React.Fragment>
+        <View style={styles.priceContainer}>
+          <Text style={styles.priceText}>{`Lista: ${this.getPriceValue(activeTotal)}`}</Text>
+          <Text>{`Koszyk: ${this.getPriceValue(boughtTotal)}`}</Text>
+        </View>
+        <SectionList
+          sections={[
+            toBuyItems,
+            boughtItems,
+            missingItems,
+          ]}
+          renderSectionHeader={({ section: { title } }) => (
+            <ListItem itemDivider>
+              <Text style={styles.itemSection}>{title}</Text>
+            </ListItem>
+          )}
+          renderItem={({ item }) => (
+            <SingleItem
+              navigation={navigation}
+              item={item}
+              onItemStateChange={onItemStateChange}
+              actionSheetOptions={this.actionSheetOptions}
+              onItemEdit={onItemEdit}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </React.Fragment>
     );
   }
 }

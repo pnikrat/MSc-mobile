@@ -22,6 +22,14 @@ const styles: any = StyleSheet.create({
   },
   stateButtons: {
     height: null,
-  }
+  },
+  priceContainer: {
+    paddingLeft: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  priceText: {
+    marginRight: 15,
+  },
 });
 export default styles;
