@@ -46,6 +46,7 @@ class ItemsContainer extends Component<Props> {
       modifiedData = { ...data, target_list: data.list_id, state: 'to_buy' };
     }
     this.props.handleItemEdit(listId, id, modifiedData || data);
+    this.props.navigation.navigate('ItemsIndex');
   }
 
   onItemStateChange = (item, desiredState) => {
