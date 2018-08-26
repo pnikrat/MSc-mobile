@@ -18,6 +18,9 @@ import { DecoratedNewGroupForm } from '../groups/NewGroupForm';
 import EditGroupForm from '../groups/EditGroupForm';
 import GroupDetailsScreen from '../groups/screens/GroupDetailsScreen';
 import NewInviteForm from '../groups/NewInviteForm';
+import { DecoratedNewItemForm } from '../items/NewItemForm';
+import EditItemForm from '../items/EditItemForm';
+import MoveItemsScreen from '../items/screens/MoveItemsScreen';
 
 function mapNavigationStateParamsToProps(ScreenComponent) {
   type Props = {
@@ -51,6 +54,9 @@ const ListsStack = createStackNavigator(
     NewList: mapNavigationStateParamsToProps(DecoratedNewListForm),
     EditList: mapNavigationStateParamsToProps(EditListForm),
     ItemsIndex: ItemsContainer,
+    NewItem: mapNavigationStateParamsToProps(DecoratedNewItemForm),
+    EditItem: mapNavigationStateParamsToProps(EditItemForm),
+    MoveItems: mapNavigationStateParamsToProps(MoveItemsScreen),
   },
   {
     headerMode: 'none',

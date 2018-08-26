@@ -27,8 +27,7 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "yarn jest && flow && eslint .",
-    "jest": "node node_modules/jest/bin/jest.js",
-    "precommit": "yarn test"
+    "jest": "node node_modules/jest/bin/jest.js"
   },
   "jest": {
     "preset": "jest-expo",
@@ -44,6 +43,7 @@
     "native-base": "2.6.1",
     "react": "16.3.1",
     "react-native": "https://github.com/pnikrat/react-native.git#pnikratForkAsyncStorageFix_v0.55.4",
+    "react-native-actioncable": "^0.0.3",
     "react-native-dotenv": "^0.2.0",
     "react-navigation": "2.9.3",
     "react-redux": "5.0.6",

@@ -13,6 +13,10 @@ const initialState = {
   listsReducer: {
     lists: [],
   },
+  itemsReducer: {
+    currentList: null,
+    items: [],
+  },
   apiMessagesReducer: {
     apiError: null,
     apiSuccess: null,
