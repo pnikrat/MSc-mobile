@@ -31,5 +31,9 @@ const styles: any = StyleSheet.create({
   priceText: {
     marginRight: 15,
   },
+  boughtSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 export default styles;

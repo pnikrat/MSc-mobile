@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Text, ListItem, View } from 'native-base';
+import { Button, Text, ListItem, View } from 'native-base';
 import { Platform, SectionList } from 'react-native';
 import SingleItem from './SingleItem';
 import styles from '../styles/itemsStyles';
@@ -12,6 +12,8 @@ type Props = {
   lists: Object,
   onItemStateChange: (Object, string) => void,
   onItemEdit: (Object) => void,
+  isRemoveBoughtDisabled: boolean,
+  removeBoughtItems: () => void,
 }
 
 class ItemsScreen extends React.Component<Props> {
@@ -55,7 +57,8 @@ class ItemsScreen extends React.Component<Props> {
 
   render() {
     const {
-      lists, items, onItemStateChange, navigation, onItemEdit,
+      lists, items, onItemStateChange, navigation,
+      onItemEdit, isRemoveBoughtDisabled, removeBoughtItems,
     } = this.props;
     const toBuyItems = { title: 'Do kupienia', data: items.filter(this.toBuy) };
     const boughtItems = { title: 'Kupione', data: items.filter(this.bought) };
@@ -78,8 +81,19 @@ class ItemsScreen extends React.Component<Props> {
             missingItems,
           ]}
           renderSectionHeader={({ section: { title } }) => (
-            <ListItem itemDivider>
+            <ListItem itemDivider style={styles.boughtSection}>
               <Text style={styles.itemSection}>{title}</Text>
+              { title === 'Kupione' &&
+                <Button
+                  small
+                  primary
+                  transparent
+                  disabled={isRemoveBoughtDisabled}
+                  onPress={() => removeBoughtItems()}
+                >
+                  <Text>Usuń kupione</Text>
+                </Button>
+              }
             </ListItem>
           )}
           renderItem={({ item }) => (

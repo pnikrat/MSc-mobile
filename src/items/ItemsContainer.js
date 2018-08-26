@@ -16,6 +16,7 @@ type Props = {
   currentList: Object,
   items: Object,
   lists: Object,
+  isRemoveBoughtDisabled: boolean,
   clearForm: () => void,
   handleSetCurrentList: (number) => void,
   handleItemAdd: (number, Object) => void,
@@ -89,7 +90,7 @@ class ItemsContainer extends Component<Props> {
 
   render() {
     const {
-      navigation, currentList, items, lists,
+      navigation, currentList, items, lists, isRemoveBoughtDisabled,
     } = this.props;
     return (
       <Container>
@@ -112,6 +113,8 @@ class ItemsContainer extends Component<Props> {
               lists={lists}
               onItemStateChange={this.onItemStateChange}
               onItemEdit={this.onItemEdit}
+              isRemoveBoughtDisabled={isRemoveBoughtDisabled}
+              removeBoughtItems={this.removeBoughtItems}
             />
           }
         </LoadableContent>
@@ -124,6 +127,7 @@ const mapStateToProps = state => ({
   items: state.itemsReducer.items,
   lists: state.listsReducer.lists,
   currentList: state.itemsReducer.currentList,
+  isRemoveBoughtDisabled: byState(state.itemsReducer.items, 'bought').length === 0,
 });
 
 const mapDispatchToProps = dispatch => ({
