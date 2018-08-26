@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container } from 'native-base';
+import { reset } from 'redux-form';
+import { Button, Icon, Container } from 'native-base';
 import { apiCall } from '../services/apiActions';
 import { GET, POST, PUT, DELETE } from '../state/constants';
 import { addItem, removeItem, editItem,
@@ -15,6 +16,7 @@ type Props = {
   currentList: Object,
   items: Object,
   lists: Object,
+  clearForm: () => void,
   handleSetCurrentList: (number) => void,
   handleItemAdd: (number, Object) => void,
   handleItemDelete: (number, number) => void,
@@ -68,6 +70,7 @@ class ItemsContainer extends Component<Props> {
   }
 
   handleItemAdd = (data) => {
+    this.props.clearForm();
     const listId = this.props.currentList.id;
     const existingItem = this.props.items.filter(
       i => i.name.localeCompare(data.name, 'en', { sensitivity: 'base' }) === 0);
@@ -80,6 +83,7 @@ class ItemsContainer extends Component<Props> {
     } else {
       this.props.handleItemAdd(listId, data);
     }
+    this.props.navigation.navigate('ItemsIndex');
   }
 
   render() {
@@ -88,7 +92,16 @@ class ItemsContainer extends Component<Props> {
     } = this.props;
     return (
       <Container>
-        {currentList && <BaseHeader navigation={navigation} headerText={currentList.name} hasGoBack /> }
+        {currentList &&
+          <BaseHeader navigation={navigation} headerText={currentList.name} hasGoBack>
+            <Button transparent>
+              <Icon
+                name="add"
+                onPress={() => navigation.navigate('NewItem', { onSubmit: this.handleItemAdd })}
+              />
+            </Button>
+          </BaseHeader>
+        }
         <LoadableContent>
           { items.length > 0 &&
             <ItemsScreen
@@ -112,6 +125,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  clearForm: () => dispatch(reset('newItem')),
   handleSetCurrentList: id => dispatch(apiCall(`/lists/${id}`, setCurrentListAndFetchItems, GET)),
   handleItemAdd: (listId, data) => dispatch(apiCall(`/lists/${listId}/items`, addItem, POST, data)),
   handleItemDelete: (listId, id) => {
