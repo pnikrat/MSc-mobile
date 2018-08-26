@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Content, Spinner } from 'native-base';
+import { View, StyleSheet } from 'react-native';
 
 type Props = {
   isLoading: boolean,
@@ -13,7 +14,10 @@ function LoadableContent({ isLoading, children }: Props) {
     <React.Fragment>
       { isLoading ? (
         <Content>
-          <Spinner />
+          {children}
+          <View style={{ ...StyleSheet.absoluteFillObject }} pointerEvents="box-none">
+            <Spinner />
+          </View>
         </Content>
       ) : (
         <Content>
