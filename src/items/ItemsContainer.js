@@ -110,6 +110,7 @@ class ItemsContainer extends Component<Props> {
               items={items}
               lists={lists}
               onItemStateChange={this.onItemStateChange}
+              onItemEdit={this.onItemEdit}
             />
           }
         </LoadableContent>

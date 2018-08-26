@@ -1,12 +1,15 @@
 // @flow
 import * as React from 'react';
-import { SwipeRow, Button, Icon } from 'native-base';
-import { View, Text } from 'react-native';
+import { SwipeRow, Button, Icon, ActionSheet, } from 'native-base';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles/itemsStyles';
 
 type Props = {
+  navigation: any,
   item: Object,
   onItemStateChange: (Object, string) => void,
+  actionSheetOptions: Object,
+  onItemEdit: (Object) => void,
 }
 
 class SingleItem extends React.Component<Props> {
@@ -15,7 +18,7 @@ class SingleItem extends React.Component<Props> {
 
   render() {
     const {
-      item, onItemStateChange,
+      item, onItemStateChange, actionSheetOptions, navigation, onItemEdit,
     } = this.props;
     return (
       <SwipeRow
@@ -53,21 +56,34 @@ class SingleItem extends React.Component<Props> {
           </View>
         }
         body={
-          <View style={styles.itemContainer}>
-            <View style={styles.centerVertically}>
-              <Text style={styles.marginBottom}>{item.name}</Text>
-              <Text>
-                {item.quantity && `Ilość: ${Number(item.quantity)} ${item.unit || ''}`}
-              </Text>
-            </View>
-            <View style={styles.centerVertically}>
-              { item.price &&
+          <TouchableOpacity
+            style={styles.itemContainer}
+            onLongPress={() => {
+              ActionSheet.show(actionSheetOptions, (index) => {
+                if (index === 1) {
+                  onItemStateChange(item, 'deleted');
+                } else if (index === 0) {
+                  navigation.navigate('EditItem', { onSubmit: onItemEdit, initialValues: item });
+                }
+              });
+            }}
+          >
+            <React.Fragment>
+              <View style={styles.centerVertically}>
+                <Text>{item.name}</Text>
                 <Text>
-                  {`${Number(item.price)} zł`}
+                  {item.quantity && `Ilość: ${Number(item.quantity)} ${item.unit || ''}`}
                 </Text>
-              }
-            </View>
-          </View>
+              </View>
+              <View style={styles.centerVertically}>
+                { item.price &&
+                  <Text>
+                    {`${Number(item.price)} zł`}
+                  </Text>
+                }
+              </View>
+            </React.Fragment>
+          </TouchableOpacity>
         }
       />
     );

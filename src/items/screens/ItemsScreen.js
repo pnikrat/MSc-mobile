@@ -11,6 +11,7 @@ type Props = {
   items: Object,
   lists: Object,
   onItemStateChange: (Object, string) => void,
+  onItemEdit: (Object) => void,
 }
 
 class ItemsScreen extends React.Component<Props> {
@@ -26,6 +27,13 @@ class ItemsScreen extends React.Component<Props> {
     return x.aasm_state === 'to_buy' ? -1 : 1;
   }
 
+  actionSheetOptions = {
+    options: ['Edytuj', 'Usuń', 'Anuluj'],
+    destructiveButtonIndex: 1,
+    cancelButtonIndex: 2,
+    title: 'Wybierz akcję',
+  }
+
   mapAndReduce = (filterType: Function, items: Object) => items.filter(filterType)
     .map(i => [i.price, i.quantity]).reduce(this.sumMoney, 0.0);
   sumMoney = (prev: number, next: Array<any>) => prev + (Number(next[0]) * (next[1] || 1))
@@ -39,7 +47,7 @@ class ItemsScreen extends React.Component<Props> {
 
   render() {
     const {
-      lists, items, onItemStateChange,
+      lists, items, onItemStateChange, navigation, onItemEdit,
     } = this.props;
     const toBuyItems = { title: 'Do kupienia', data: items.filter(this.toBuy) };
     const boughtItems = { title: 'Kupione', data: items.filter(this.bought) };
@@ -62,7 +70,13 @@ class ItemsScreen extends React.Component<Props> {
           </ListItem>
         )}
         renderItem={({ item }) => (
-          <SingleItem item={item} onItemStateChange={onItemStateChange} />
+          <SingleItem
+            navigation={navigation}
+            item={item}
+            onItemStateChange={onItemStateChange}
+            actionSheetOptions={this.actionSheetOptions}
+            onItemEdit={onItemEdit}
+          />
         )}
         keyExtractor={item => item.id}
       />

@@ -6,7 +6,7 @@ const styles: any = StyleSheet.create({
     fontWeight: 'bold',
   },
   itemContainer: {
-    height: 30,
+    height: 35,
     paddingLeft: 10,
     flex: 1,
     flexDirection: 'row',
@@ -14,9 +14,6 @@ const styles: any = StyleSheet.create({
   },
   centerVertically: {
     justifyContent: 'center',
-  },
-  marginBottom: {
-    marginBottom: 3,
   },
   stateButtonsContainer: {
     flex: 1,
