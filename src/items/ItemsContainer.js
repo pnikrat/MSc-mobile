@@ -125,7 +125,7 @@ class ItemsContainer extends Component<Props> {
             <ItemsScreen
               navigation={navigation}
               currentList={currentList}
-              items={items.filter(item => item.list_id === currentList.id)}
+              items={items}
               lists={lists}
               onItemStateChange={this.onItemStateChange}
               onItemEdit={this.onItemEdit}
