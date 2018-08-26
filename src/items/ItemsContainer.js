@@ -17,6 +17,7 @@ type Props = {
   items: Object,
   lists: Object,
   isRemoveBoughtDisabled: boolean,
+  isMoveMissingDisabled: boolean,
   clearForm: () => void,
   handleSetCurrentList: (number) => void,
   handleItemAdd: (number, Object) => void,
@@ -69,6 +70,7 @@ class ItemsContainer extends Component<Props> {
     const params = { ids: missingItemsIds, target_list: targetListId, state: 'to_buy' };
     const listId = this.props.currentList.id;
     this.props.handleMoveMissingItems(listId, params);
+    this.props.navigation.navigate('ItemsIndex');
   }
 
   handleItemAdd = (data) => {
@@ -90,7 +92,7 @@ class ItemsContainer extends Component<Props> {
 
   render() {
     const {
-      navigation, currentList, items, lists, isRemoveBoughtDisabled,
+      navigation, currentList, items, lists, isRemoveBoughtDisabled, isMoveMissingDisabled,
     } = this.props;
     return (
       <Container>
@@ -115,6 +117,8 @@ class ItemsContainer extends Component<Props> {
               onItemEdit={this.onItemEdit}
               isRemoveBoughtDisabled={isRemoveBoughtDisabled}
               removeBoughtItems={this.removeBoughtItems}
+              isMoveMissingDisabled={isMoveMissingDisabled}
+              moveMissingItems={this.moveMissingItems}
             />
           }
         </LoadableContent>
@@ -128,6 +132,7 @@ const mapStateToProps = state => ({
   lists: state.listsReducer.lists,
   currentList: state.itemsReducer.currentList,
   isRemoveBoughtDisabled: byState(state.itemsReducer.items, 'bought').length === 0,
+  isMoveMissingDisabled: byState(state.itemsReducer.items, 'missing').length === 0,
 });
 
 const mapDispatchToProps = dispatch => ({

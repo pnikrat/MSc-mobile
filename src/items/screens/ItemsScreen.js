@@ -14,6 +14,8 @@ type Props = {
   onItemEdit: (Object) => void,
   isRemoveBoughtDisabled: boolean,
   removeBoughtItems: () => void,
+  isMoveMissingDisabled: boolean,
+  moveMissingItems: (number) => void,
 }
 
 class ItemsScreen extends React.Component<Props> {
@@ -59,6 +61,7 @@ class ItemsScreen extends React.Component<Props> {
     const {
       lists, items, onItemStateChange, navigation,
       onItemEdit, isRemoveBoughtDisabled, removeBoughtItems,
+      isMoveMissingDisabled, moveMissingItems,
     } = this.props;
     const toBuyItems = { title: 'Do kupienia', data: items.filter(this.toBuy) };
     const boughtItems = { title: 'Kupione', data: items.filter(this.bought) };
@@ -92,6 +95,17 @@ class ItemsScreen extends React.Component<Props> {
                   onPress={() => removeBoughtItems()}
                 >
                   <Text>Usuń kupione</Text>
+                </Button>
+              }
+              { title === 'Brak w sklepie' &&
+                <Button
+                  small
+                  primary
+                  transparent
+                  disabled={isMoveMissingDisabled || availableLists.length === 0}
+                  onPress={() => navigation.navigate('MoveItems', { availableLists, moveMissingItems })}
+                >
+                  <Text>Przenieś brakujące</Text>
                 </Button>
               }
             </ListItem>
