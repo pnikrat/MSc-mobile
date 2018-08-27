@@ -44,6 +44,18 @@ class ItemsContainer extends Component<Props> {
     this.listChannel.unsubscribe();
   }
 
+  onResultSelect = (data) => {
+    const listId = this.props.currentList.id;
+    if (data.list_id !== listId) {
+      const { id, list_id: otherList, ...remainingData } = data;
+      this.props.handleItemAdd(listId, remainingData);
+    } else {
+      const { id } = data;
+      const stateParams = { state: 'to_buy' };
+      this.props.handleItemEdit(listId, id, stateParams);
+    }
+  }
+
   onItemDelete = (id) => {
     const listId = this.props.currentList.id;
     this.props.handleItemDelete(listId, id);
@@ -112,6 +124,14 @@ class ItemsContainer extends Component<Props> {
       <Container>
         {currentList &&
           <BaseHeader navigation={navigation} headerText={currentList.name} hasGoBack>
+            <Button transparent>
+              <Icon
+                name="search"
+                onPress={() => navigation.navigate('Search', {
+                  onResultSelect: this.onResultSelect, onItemDelete: this.onItemDelete
+                })}
+              />
+            </Button>
             <Button transparent>
               <Icon
                 name="add"
