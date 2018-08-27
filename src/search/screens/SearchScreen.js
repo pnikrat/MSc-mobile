@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Container, Text, ListItem } from 'native-base';
+import { Container, Text, ListItem, View } from 'native-base';
 import { SectionList } from 'react-native';
 import LoadableContent from '../../common/LoadableContent';
 import SearchHeader from '../../common/SearchHeader';
@@ -53,15 +53,22 @@ class SearchScreen extends React.Component<Props> {
             )}
             renderItem={({ item }) => (
               <ListItem>
-                <Text>{item.name}</Text>
+                <View style={styles.itemContainer}>
+                  <View style={styles.centerVertically}>
+                    <Text>{item.name}</Text>
+                    <Text>
+                      {item.quantity && `Ilość: ${Number(item.quantity)} ${item.unit || ''}`}
+                    </Text>
+                  </View>
+                  <View style={styles.centerVertically}>
+                    { item.price &&
+                      <Text>
+                        {`${Number(item.price)} zł`}
+                      </Text>
+                    }
+                  </View>
+                </View>
               </ListItem>
-              // <SearchResult
-              //   navigation={navigation}
-              //   item={item}
-              //   onItemStateChange={onItemStateChange}
-              //   actionSheetOptions={this.actionSheetOptions}
-              //   onItemEdit={onItemEdit}
-              // />
             )}
             keyExtractor={item => item.id}
           />
