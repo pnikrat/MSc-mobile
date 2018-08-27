@@ -12,8 +12,8 @@ type Props = {
   searchResults: Array<Object>,
   searchFieldValue: string,
   onChangeText: (string) => void,
-  onResultSelect: (data: Object) => void,
-  onItemDelete: (id: number) => void,
+  onResultSelect: (data: Object) => Promise<void>,
+  onItemDelete: (id: number) => Promise<void>,
 }
 
 class SearchScreen extends React.Component<Props> {

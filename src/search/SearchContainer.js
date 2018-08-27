@@ -35,13 +35,13 @@ class SearchContainer extends Component<Props> {
     this.debouncedItemsSearch(listId, value);
   }
 
-  handleResultSelect = (data: Object) => {
-    this.props.onResultSelect(data);
+  handleResultSelect = async (data: Object) => {
+    await this.props.onResultSelect(data);
     this.onSearchChange(this.props.searchFieldValue); // refetch search items
   }
 
-  handleItemDelete = (id: number) => {
-    this.props.onItemDelete(id);
+  handleItemDelete = async (id: number) => {
+    await this.props.onItemDelete(id);
     this.onSearchChange(this.props.searchFieldValue); // refetch search items
   }
 
