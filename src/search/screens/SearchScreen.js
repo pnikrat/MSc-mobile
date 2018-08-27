@@ -12,6 +12,8 @@ type Props = {
   searchResults: Array<Object>,
   searchFieldValue: string,
   onChangeText: (string) => void,
+  onResultSelect: (data: Object) => void,
+  onItemDelete: (id: number) => void,
 }
 
 class SearchScreen extends React.Component<Props> {
@@ -22,7 +24,7 @@ class SearchScreen extends React.Component<Props> {
 
   render() {
     const {
-      navigation, searchResults, searchFieldValue, onChangeText,
+      navigation, searchResults, searchFieldValue, onChangeText, onResultSelect, onItemDelete,
     } = this.props;
     const currentListResults = {
       title: 'Z aktualnej listy', data: searchResults.filter(this.currentListFilter)
@@ -52,7 +54,7 @@ class SearchScreen extends React.Component<Props> {
               </ListItem>
             )}
             renderItem={({ item }) => (
-              <ListItem>
+              <ListItem onPress={() => onResultSelect(item)}>
                 <View style={styles.itemContainer}>
                   <View style={styles.centerVertically}>
                     <Text>{item.name}</Text>

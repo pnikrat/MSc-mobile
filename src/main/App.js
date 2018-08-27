@@ -58,7 +58,7 @@ const ListsStack = createStackNavigator(
     NewItem: mapNavigationStateParamsToProps(DecoratedNewItemForm),
     EditItem: mapNavigationStateParamsToProps(EditItemForm),
     MoveItems: mapNavigationStateParamsToProps(MoveItemsScreen),
-    Search: SearchContainer,
+    Search: mapNavigationStateParamsToProps(SearchContainer),
   },
   {
     headerMode: 'none',

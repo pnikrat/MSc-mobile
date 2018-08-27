@@ -22,6 +22,7 @@ const initialState = {
     apiSuccess: null,
   },
   searchReducer: {
+    currentList: null,
     results: [],
     value: '',
   },

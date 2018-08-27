@@ -1,5 +1,5 @@
 import {
-  SET_SEARCH_RESULTS, SET_SEARCH_FIELD_VALUE,
+  SET_SEARCH_RESULTS, SET_SEARCH_FIELD_VALUE, SET_CURRENT_SEARCH_LIST,
 } from '../../state/constants';
 
 function searchReducer(state = {}, action) {
@@ -13,6 +13,11 @@ function searchReducer(state = {}, action) {
       return Object.assign({}, state, {
         results: state.results,
         value: action.value,
+      });
+    case SET_CURRENT_SEARCH_LIST:
+      return Object.assign({}, state, {
+        currentList: action.payload,
+        results: [],
       });
     default:
       return state;

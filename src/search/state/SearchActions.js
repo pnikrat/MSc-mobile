@@ -1,5 +1,5 @@
 import {
-  SET_SEARCH_RESULTS, SET_SEARCH_FIELD_VALUE,
+  SET_SEARCH_RESULTS, SET_SEARCH_FIELD_VALUE, SET_CURRENT_SEARCH_LIST,
 } from '../../state/constants';
 
 function setSearchResults(response) {
@@ -16,7 +16,15 @@ function setSearchFieldValue(value) {
   };
 }
 
+function setCurrentSearchList(list) {
+  return {
+    type: SET_CURRENT_SEARCH_LIST,
+    payload: list,
+  };
+}
+
 export {
   setSearchResults,
   setSearchFieldValue,
+  setCurrentSearchList,
 };
