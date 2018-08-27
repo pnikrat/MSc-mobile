@@ -21,6 +21,10 @@ const initialState = {
     apiError: null,
     apiSuccess: null,
   },
+  searchReducer: {
+    results: [],
+    value: '',
+  },
   groupsReducer: {
     groups: [],
     currentGroup: {},

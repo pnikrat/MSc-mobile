@@ -5,6 +5,7 @@ import listsReducer from '../lists/state/ListsReducer';
 import itemsReducer from '../items/state/ItemsReducer';
 import apiLoadingReducer from '../services/apiLoadingReducer';
 import apiMessagesReducer from '../services/apiMessagesReducer';
+import searchReducer from '../search/state/SearchReducer';
 import groupsReducer from '../groups/state/GroupsReducer';
 
 const appReducer = combineReducers({
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   itemsReducer,
   apiLoadingReducer,
   apiMessagesReducer,
+  searchReducer,
   groupsReducer,
 });
 
