@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { Container, Text, ListItem } from 'native-base';
 import { SectionList } from 'react-native';
-import BaseHeader from '../../common/BaseHeader';
 import LoadableContent from '../../common/LoadableContent';
+import SearchHeader from '../../common/SearchHeader';
 
 type Props = {
   navigation: any,
@@ -33,9 +33,7 @@ class SearchScreen extends React.Component<Props> {
 
     return (
       <Container>
-        <BaseHeader navigation={navigation} headerText="Wyszukaj produkty" hasGoBack>
-          {/* // search input here */}
-        </BaseHeader>
+        <SearchHeader navigation={navigation} searchPlaceholder="Wyszukaj produkty" hasGoBack />
         <LoadableContent>
           {/* <SectionList
             sections={[
