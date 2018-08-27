@@ -6,10 +6,12 @@ type Props = {
   navigation: any,
   searchPlaceholder: string,
   hasGoBack?: boolean,
+  searchFieldValue: string,
+  onChangeText: (string) => void,
 }
 
 const SearchHeader = ({
-  navigation, searchPlaceholder, hasGoBack
+  navigation, searchPlaceholder, hasGoBack, searchFieldValue, onChangeText,
 }: Props) => (
   <Header searchBar rounded>
     <Left>
@@ -21,7 +23,11 @@ const SearchHeader = ({
     </Left>
     <Item>
       <Icon name="ios-search" />
-      <Input placeholder={searchPlaceholder} />
+      <Input
+        placeholder={searchPlaceholder}
+        value={searchFieldValue}
+        onChangeText={onChangeText}
+      />
     </Item>
   </Header>
 );

@@ -4,58 +4,67 @@ import { Container, Text, ListItem } from 'native-base';
 import { SectionList } from 'react-native';
 import LoadableContent from '../../common/LoadableContent';
 import SearchHeader from '../../common/SearchHeader';
+import styles from '../../items/styles/itemsStyles';
 
 type Props = {
   navigation: any,
   currentList: Object,
-  // items: Object,
-  // lists: Object,
-  // onItemStateChange: (Object, string) => void,
-  // onItemEdit: (Object) => void,
-  // isRemoveBoughtDisabled: boolean,
-  // removeBoughtItems: () => void,
-  // isMoveMissingDisabled: boolean,
-  // moveMissingItems: (number) => void,
+  searchResults: Array<Object>,
+  searchFieldValue: string,
+  onChangeText: (string) => void,
 }
 
 class SearchScreen extends React.Component<Props> {
   props: Props
 
+  currentListFilter = (x: Object) => x.list_id === this.props.currentList.id;
+  otherListFilter = (x: Object) => x.list_id !== this.props.currentList.id;
+
   render() {
     const {
-      navigation,
-      // lists, items, onItemStateChange, navigation,
-      // onItemEdit, isRemoveBoughtDisabled, removeBoughtItems,
-      // isMoveMissingDisabled, moveMissingItems,
+      navigation, searchResults, searchFieldValue, onChangeText,
     } = this.props;
-    // const currentListResults = { title: 'Z aktualnej listy', data: results.filter(this.toBuy) };
-    // const otherListResults = { title: 'Z innych list', data: results.filter(this.bought) };
+    const currentListResults = {
+      title: 'Z aktualnej listy', data: searchResults.filter(this.currentListFilter)
+    };
+    const otherListResults = {
+      title: 'Z innych list', data: searchResults.filter(this.otherListFilter)
+    };
 
     return (
       <Container>
-        <SearchHeader navigation={navigation} searchPlaceholder="Wyszukaj produkty" hasGoBack />
+        <SearchHeader
+          navigation={navigation}
+          searchPlaceholder="Wyszukaj produkty"
+          hasGoBack
+          searchFieldValue={searchFieldValue}
+          onChangeText={onChangeText}
+        />
         <LoadableContent>
-          {/* <SectionList
+          <SectionList
             sections={[
               currentListResults,
               otherListResults,
             ]}
             renderSectionHeader={({ section: { title } }) => (
-              <ListItem itemDivider style={styles.boughtSection}>
+              <ListItem itemDivider>
                 <Text style={styles.itemSection}>{title}</Text>
               </ListItem>
             )}
             renderItem={({ item }) => (
-              <SearchResult
-                navigation={navigation}
-                item={item}
-                onItemStateChange={onItemStateChange}
-                actionSheetOptions={this.actionSheetOptions}
-                onItemEdit={onItemEdit}
-              />
+              <ListItem>
+                <Text>{item.name}</Text>
+              </ListItem>
+              // <SearchResult
+              //   navigation={navigation}
+              //   item={item}
+              //   onItemStateChange={onItemStateChange}
+              //   actionSheetOptions={this.actionSheetOptions}
+              //   onItemEdit={onItemEdit}
+              // />
             )}
             keyExtractor={item => item.id}
-          /> */}
+          />
         </LoadableContent>
       </Container>
     );

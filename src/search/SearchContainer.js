@@ -4,51 +4,45 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { GET } from '../state/constants';
 import { apiCall } from '../services/apiActions';
-// import { setSearchResults, setSearchFieldValue,
-//   setSearchMenuVisibility, changeSearchResultFocus } from './SearchActions';
+import { setSearchResults, setSearchFieldValue } from './state/SearchActions';
 import SearchScreen from './screens/SearchScreen';
 
 type Props = {
   navigation: any,
   currentList: Object,
-  // displayResults: boolean,
-  // cursor: number,
-  // placeholder?: string,
-  // searchFieldValue: string,
-  // searchResults: Array<Object>,
+  searchResults: Array<Object>,
+  searchFieldValue: string,
   // onResultSelect: (data: Object) => void,
   // onItemDelete: (id: number) => void,
-  // handleItemsSearch: (Number, string) => void,
-  // handleSetSearchFieldValue: (string) => void,
-  // handleSetSearchMenuVisibility: (boolean) => void,
-  // handleSearchFocus: (number) => void,
+  handleItemsSearch: (number, string) => void,
+  handleSetSearchFieldValue: (string) => void,
 }
 
 class SearchContainer extends Component<Props> {
   componentDidMount = () => {
     // this.props.handleSetSearchFieldValue('');
-    // this.debouncedItemsSearch = _.debounce(this.props.handleItemsSearch, 500);
+    this.debouncedItemsSearch = _.debounce(this.props.handleItemsSearch, 500);
   }
 
-  onSearchChange = (event, data) => {
+  onSearchChange = (value: string) => {
     const listId = this.props.currentList.id;
-    const { value } = data;
-    // this.props.handleSetSearchFieldValue(value);
+    this.props.handleSetSearchFieldValue(value);
     this.debouncedItemsSearch(listId, value);
   }
 
-  debouncedItemsSearch: ((Number: any, string: any) => void) & _.Cancelable
+  debouncedItemsSearch: ((number: any, string: any) => void) & _.Cancelable
 
   render() {
     const {
-      currentList, navigation,
-      // placeholder, onResultSelect, searchFieldValue,
-      // onItemDelete, displayResults, searchResults, currentList,
+      currentList, navigation, searchResults, searchFieldValue,
     } = this.props;
     return (
       <SearchScreen
         currentList={currentList}
         navigation={navigation}
+        searchResults={searchResults}
+        searchFieldValue={searchFieldValue}
+        onChangeText={this.onSearchChange}
       />
     );
   }
@@ -56,19 +50,15 @@ class SearchContainer extends Component<Props> {
 
 const mapStateToProps = state => ({
   currentList: state.itemsReducer.currentList,
-  // searchResults: state.searchReducer.results,
-  // displayResults: state.searchReducer.open,
-  // searchFieldValue: state.searchReducer.value,
-  // cursor: state.searchReducer.cursor,
+  searchResults: state.searchReducer.results,
+  searchFieldValue: state.searchReducer.value,
 });
 
 const mapDispatchToProps = dispatch => ({
-  // handleSetSearchFieldValue: value => dispatch(setSearchFieldValue(value)),
-  // handleSetSearchMenuVisibility: value => dispatch(setSearchMenuVisibility(value)),
-  // handleItemsSearch: (listId, query) => {
-  //   dispatch(apiCall(`/lists/${listId}/items/?name=${query}`, setSearchResults, GET));
-  // },
-  // handleSearchFocus: value => dispatch(changeSearchResultFocus(value)),
+  handleSetSearchFieldValue: value => dispatch(setSearchFieldValue(value)),
+  handleItemsSearch: (listId, query) => {
+    dispatch(apiCall(`/lists/${listId}/items/?name=${query}`, setSearchResults, GET));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
