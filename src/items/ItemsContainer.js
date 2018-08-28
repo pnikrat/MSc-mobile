@@ -124,19 +124,19 @@ class ItemsContainer extends Component<Props> {
       <Container>
         {currentList &&
           <BaseHeader navigation={navigation} headerText={currentList.name} hasGoBack>
-            <Button transparent>
-              <Icon
-                name="search"
-                onPress={() => navigation.navigate('Search', {
+            <Button
+              transparent
+              onPress={() => navigation.navigate('Search', {
                   onResultSelect: this.onResultSelect, onItemDelete: this.onItemDelete
-                })}
-              />
+              })}
+            >
+              <Icon name="search" />
             </Button>
-            <Button transparent>
-              <Icon
-                name="add"
-                onPress={() => navigation.navigate('NewItem', { onSubmit: this.handleItemAdd })}
-              />
+            <Button
+              transparent
+              onPress={() => navigation.navigate('NewItem', { onSubmit: this.handleItemAdd })}
+            >
+              <Icon name="add" />
             </Button>
           </BaseHeader>
         }

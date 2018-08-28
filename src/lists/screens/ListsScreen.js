@@ -58,11 +58,8 @@ class ListsScreen extends Component<Props> {
     return (
       <Container>
         <BaseHeader navigation={navigation} headerText="Listy">
-          <Button transparent>
-            <Icon
-              name="add"
-              onPress={() => navigation.navigate('NewList', { onSubmit: onNewListSubmit })}
-            />
+          <Button transparent onPress={() => navigation.navigate('NewList', { onSubmit: onNewListSubmit })}>
+            <Icon name="add" />
           </Button>
         </BaseHeader>
         <Content>
