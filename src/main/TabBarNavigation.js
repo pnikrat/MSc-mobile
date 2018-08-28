@@ -9,32 +9,32 @@ type Props = {
 }
 
 function TabBarNavigation({ navigation }: Props) {
-  const isActive = routeName => navigation.state.routeName === routeName;
+  const isActive = routeIndex => navigation.state.index === routeIndex;
   return (
     <Footer>
       <FooterTab>
         <Button
           vertical
-          active={isActive('Lists')}
+          active={isActive(0)}
           onPress={() => navigation.navigate('Lists')}
         >
-          <Icon active={isActive('Lists')} name="list" />
+          <Icon active={isActive(0)} name="list" />
           <Text>Listy</Text>
         </Button>
         <Button
           vertical
-          active={isActive('Groups')}
+          active={isActive(1)}
           onPress={() => navigation.navigate('Groups')}
         >
-          <Icon active={isActive('Groups')} name="people" />
+          <Icon active={isActive(1)} name="people" />
           <Text>Grupy</Text>
         </Button>
         <Button
           vertical
-          active={isActive('Account')}
+          active={isActive(2)}
           onPress={() => navigation.navigate('Account')}
         >
-          <Icon active={isActive('Account')} name="settings" />
+          <Icon active={isActive(2)} name="settings" />
           <Text>Konto</Text>
         </Button>
       </FooterTab>
