@@ -26,6 +26,7 @@ class NewGroupForm extends Component<Props> {
           { errors && Toast.show({ text: errors.name, buttonText: 'OK' }) }
           <View padder>
             <Field
+              autoFocus
               name="name"
               label="Nazwa grupy"
               component={BaseInput}

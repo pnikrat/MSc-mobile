@@ -46,18 +46,18 @@ class GroupDetailsScreen extends Component<Props> {
       <Container>
         <BaseHeader navigation={navigation} headerText={`${group.name}`} hasGoBack>
           { group.creator_id === currentUser.id &&
-          <Button transparent>
-            <Icon
-              name="person-add"
-              onPress={() =>
+          <Button
+            transparent
+            onPress={() =>
                 navigation.navigate('NewInvite',
                   {
                     onSubmit: this.handleInviteCreate,
                     initialValues: { invitable_id: group.id, invitable_type: 'Group' }
                   }
                 )
-              }
-            />
+            }
+          >
+            <Icon name="person-add" />
           </Button> }
         </BaseHeader>
         <Content>

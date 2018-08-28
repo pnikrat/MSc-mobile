@@ -24,6 +24,7 @@ const SearchHeader = ({
     <Item>
       <Icon name="ios-search" />
       <Input
+        autoFocus
         placeholder={searchPlaceholder}
         value={searchFieldValue}
         onChangeText={onChangeText}

@@ -65,11 +65,11 @@ class GroupsScreen extends Component<Props> {
     return (
       <Container>
         <BaseHeader navigation={navigation} headerText="Grupy">
-          <Button transparent>
-            <Icon
-              name="add"
-              onPress={() => navigation.navigate('NewGroup', { onSubmit: onNewGroupSubmit })}
-            />
+          <Button
+            transparent
+            onPress={() => navigation.navigate('NewGroup', { onSubmit: onNewGroupSubmit })}
+          >
+            <Icon name="add" />
           </Button>
         </BaseHeader>
         <Content>

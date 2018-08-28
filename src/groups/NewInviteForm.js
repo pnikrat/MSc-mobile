@@ -27,6 +27,7 @@ class NewInviteForm extends Component<Props> {
           { errors && Toast.show({ text: errors.email, buttonText: 'OK' }) }
           <View padder>
             <Field
+              autoFocus
               name="email"
               label="Email zapraszanego"
               component={BaseInput}
