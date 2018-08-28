@@ -14,16 +14,5 @@ const styles: any = StyleSheet.create({
   button: {
     marginTop: 15,
   },
-  footerBackground: {
-    backgroundColor: '#F8F8F8',
-  },
-  footerContentAlignment: {
-    alignItems: 'center',
-    opacity: 0.5,
-    flexDirection: 'row',
-  },
-  footerText: {
-    color: '#000',
-  },
 });
 export default styles;

@@ -8,6 +8,7 @@ const numeric = text => text && text.replace(/[^0-9|.]/g, '');
 const ItemsFormCore = () => (
   <React.Fragment>
     <Field
+      autoFocus
       name="name"
       label="Nazwa"
       component={BaseInput}

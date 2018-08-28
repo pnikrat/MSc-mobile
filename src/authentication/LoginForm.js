@@ -16,6 +16,7 @@ class LoginForm extends Component<Props> {
     return (
       <View padder>
         <Field
+          autoFocus
           name="email"
           label="Adres email"
           component={BaseInput}

@@ -25,13 +25,6 @@ const LandingScreen = ({ navigation, styles }: Props) => (
         <Text>Logowanie</Text>
       </Button>
     </Content>
-    <Footer style={styles.footerBackground}>
-      <View style={styles.footerContentAlignment}>
-        <View padder>
-          <Text style={styles.footerText}>Made by Przemo</Text>
-        </View>
-      </View>
-    </Footer>
   </Container>
 );
 
