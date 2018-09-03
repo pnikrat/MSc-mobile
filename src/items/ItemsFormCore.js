@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Field } from 'redux-form';
 import BaseInput from '../common/BaseInput';
 
-const numeric = text => text && text.replace(/[^0-9|.]/g, '');
+const numeric = text => text && text.replace(/[^0-9|.|,]/g, '').replace(/,/g, '.');
 
 const ItemsFormCore = () => (
   <React.Fragment>
